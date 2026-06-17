@@ -333,6 +333,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   display:flex; justify-content:space-between; align-items:center;
   padding-top: 1.6rem; font-size: .82rem; flex-wrap: wrap; gap: 1rem;
 }
+.footer-bottom a{ text-decoration: underline; text-underline-offset: 2px; transition: color .2s; }
+.footer-bottom a:hover{ color: var(--on-navy); }
 .social-row{ display:flex; gap: .9rem; }
 .social-row a{
   width: 36px; height: 36px; border-radius: 50%;
@@ -1050,7 +1052,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
     <div class="footer-bottom">
       <span>© 2026 A &amp; J Web Services. All rights reserved.</span>
-      <span>Built &amp; managed in-house.</span>
+      <span><a href="privacy.html">Privacy Policy</a></span>
     </div>
   </div>
 </footer>
