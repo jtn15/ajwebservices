@@ -551,6 +551,38 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 </head>
 <body>
 
+<style>
+.promo-banner{ background: var(--sky); color:#fff; display:flex; align-items:center; justify-content:center; position:relative; padding:.65rem 2.6rem; text-align:center; }
+.promo-banner-link{ color:#fff; display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; justify-content:center; text-decoration:none; }
+.promo-banner-text{ font-size:.86rem; font-weight:500; font-family: var(--font-body); }
+.promo-banner-cta{ font-family: var(--font-mono); font-size:.76rem; font-weight:600; text-decoration:underline; text-underline-offset:3px; white-space:nowrap; }
+.promo-banner-close{ position:absolute; right:.9rem; top:50%; transform:translateY(-50%); background:none; border:none; color:#fff; font-size:1.15rem; line-height:1; cursor:pointer; opacity:.8; padding:.2rem .5rem; }
+.promo-banner-close:hover{ opacity:1; }
+</style>
+<div class="promo-banner" id="promoBanner">
+  <a href="#pricing" class="promo-banner-link">
+    <span class="promo-banner-text">Founders Offer — the first 25 subscribers lock in $40/month for a full year.</span>
+    <span class="promo-banner-cta">See the offer →</span>
+  </a>
+  <button class="promo-banner-close" id="promoBannerClose" aria-label="Dismiss">×</button>
+</div>
+<script>
+(function(){
+  var banner = document.getElementById('promoBanner');
+  var closeBtn = document.getElementById('promoBannerClose');
+  if(!banner) return;
+  try{
+    if(localStorage.getItem('aj-founders-banner-dismissed') === '1'){ banner.style.display = 'none'; return; }
+  }catch(e){}
+  if(closeBtn){
+    closeBtn.addEventListener('click', function(){
+      banner.style.display = 'none';
+      try{ localStorage.setItem('aj-founders-banner-dismissed', '1'); }catch(e){}
+    });
+  }
+})();
+</script>
+
 <header class="site-header">
   <div class="nav-inner">
     <a href="index.html" class="logo-link">
