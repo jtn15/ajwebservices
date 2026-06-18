@@ -504,6 +504,37 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .steps-grid{ grid-template-columns: 1fr; }
 }
 
+.feature-grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.4rem;
+}
+.feature-card{
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sharp);
+  padding: 2rem 1.7rem;
+  transition: border-color .25s, transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.feature-card:hover{
+  border-color: var(--sky);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 28px -16px rgba(16,31,51,.16);
+}
+.feature-icon{
+  width: 30px; height: 30px;
+  color: var(--sky);
+  margin-bottom: 1.2rem;
+}
+.feature-card h3{ font-size: 1.1rem; margin-bottom: .6rem; }
+.feature-card p{ color: var(--slate); font-size: .92rem; line-height: 1.6; }
+@media (max-width: 980px){
+  .feature-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px){
+  .feature-grid{ grid-template-columns: 1fr; }
+}
+
 /* ---- about ---- */
 .about-grid{
   display:grid;
@@ -700,6 +731,39 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <span class="process-num">03</span>
         <h3>Automate &amp; Sync</h3>
         <p>Push leads straight to your Google Sheet in one click, then let the built-in sender drip the emails out automatically.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT'S INSIDE ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">What's Actually Inside</div>
+      <h2>More than a scraper.</h2>
+      <p class="sub">The parts that don't fit in a three-step diagram, but make the difference between a list and a real pipeline.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".5" fill="currentColor"/></svg>
+        <h3>Smart Targeting</h3>
+        <p>Every search filters for businesses with under 50 reviews — the ones whose online presence hasn't caught up yet, and the ones most likely to actually need what you're selling.</p>
+      </div>
+      <div class="feature-card reveal">
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"/></svg>
+        <h3>Multichannel Reach</h3>
+        <p>Beyond email, every lead comes with their Instagram, LinkedIn, and Facebook profiles pulled automatically — one click copies your AI-drafted pitch and opens their profile, ready to send.</p>
+      </div>
+      <div class="feature-card reveal">
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg>
+        <h3>Reply Detection</h3>
+        <p>The tool watches your inbox and flags the moment a lead replies, updating their status automatically so nothing falls through the cracks.</p>
+      </div>
+      <div class="feature-card reveal">
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>
+        <h3>Safe Sending</h3>
+        <p>Built-in daily caps, delays between sends, and business-hours-only delivery protect your domain's reputation, so the tool keeps working long-term instead of burning out after one big blast.</p>
       </div>
     </div>
   </div>
