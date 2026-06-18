@@ -643,7 +643,87 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .story-visual{ order:-1; aspect-ratio: 16/10; }
 }
 
-/* ---------- LEAD SCRAPER SPOTLIGHT ---------- */
+/* ---------- PROPRIETARY TOOLS ---------- */
+.tools-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: center;
+}
+.tools-text p{ color: var(--slate); font-size: 1.05rem; margin-top: 1.2rem; max-width: 480px; }
+.tools-cards{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.tool-badge{
+  display:flex;
+  align-items:center;
+  gap: .8rem;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sharp);
+  padding: 1.1rem 1.2rem;
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.tool-badge svg{ width:18px; height:18px; color: var(--sky); flex-shrink:0; }
+@media (max-width: 860px){
+  .tools-grid{ grid-template-columns: 1fr; }
+  .tools-cards{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px){
+  .tools-cards{ grid-template-columns: 1fr; }
+}
+
+/* ---------- SEO AUDIT ---------- */
+.audit-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: center;
+}
+.audit-text h2{ color: var(--on-navy); }
+.audit-text p{ color: var(--on-navy-soft); font-size: 1.05rem; margin-top: 1.2rem; }
+.audit-list{
+  list-style: none;
+  margin-top: 1.8rem;
+  display:flex;
+  flex-direction:column;
+  gap:.85rem;
+}
+.audit-list li{
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+  color: var(--on-navy-soft);
+  font-size: .95rem;
+}
+.audit-list li svg{ width:16px; height:16px; color: var(--sky); flex-shrink:0; }
+.audit-form{
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--radius-sharp);
+  padding: 2.2rem;
+  display:flex;
+  flex-direction:column;
+  gap: 1.2rem;
+}
+.audit-form .field label{ color: var(--on-navy-soft); font-size: .82rem; }
+.audit-form .field input{
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.16);
+  color: var(--on-navy);
+}
+.audit-form .field input::placeholder{ color: rgba(255,255,255,.3); }
+.audit-form .field input:focus{ border-color: var(--sky); background: rgba(255,255,255,.1); }
+@media (max-width: 860px){
+  .audit-grid{ grid-template-columns: 1fr; }
+}
+
+
 .spotlight-grid{
   display:grid;
   grid-template-columns: 1fr .85fr;
@@ -799,6 +879,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <li><a href="#services">Services</a></li>
         <li><a href="#process">Process</a></li>
         <li><a href="lead-scraper.html">Lead Scraper</a></li>
+        <li><a href="process.html">How We Work</a></li>
+        <li><a href="client-portal.html">Client Portal</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -850,7 +932,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">What We Do</div>
-      <h2>Four services. One coordinated push.</h2>
+      <h2>Six services. One coordinated push.</h2>
       <p class="sub">Every account gets the same core toolkit — run together so nothing pulls in a different direction.</p>
     </div>
   </div>
@@ -876,9 +958,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <h3>Campaign Management &amp; Optimization</h3>
         <p>Every campaign gets watched and adjusted on an ongoing basis, so spend keeps moving toward what's actually working.</p>
       </article>
+      <article class="service-card">
+        <span class="service-tag">Outbound · Prospecting</span>
+        <h3>B2B Lead Generation</h3>
+        <p>We don't wait for leads to find you. Using our proprietary prospecting engine, we actively identify and reach out to your ideal clients — industry-targeted, personalized, and automated at scale.</p>
+      </article>
+      <article class="service-card">
+        <span class="service-tag">Retention · Email &amp; SMS</span>
+        <h3>Email &amp; SMS Marketing</h3>
+        <p>Stay top of mind with the customers you've already earned. Automated sequences and targeted campaigns that drive repeat business and referrals.</p>
+      </article>
     </div>
     <div class="rail-progress"><span></span></div>
-    <div class="rail-hint"><span>Swipe to see all four</span><span>01 — 04</span></div>
+    <div class="rail-hint"><span>Swipe to see all six</span><span>01 — 06</span></div>
   </div>
 </section>
 
@@ -929,17 +1021,48 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 <section class="section section--raised">
   <div class="wrap story-grid">
     <div class="story-text reveal">
-      <div class="eyebrow">Why A &amp; J</div>
+      <div class="eyebrow">Our Story</div>
       <h2>Built by marketers who got tired of waiting on leads.</h2>
-      <p>A &amp; J Web Services started the same way most of our clients' businesses did — one person doing the work, looking for an edge.</p>
-      <p class="lede">That edge became a tool of its own: the A &amp; J Lead Scraper, the system built to find leads and draft outreach automatically, now used by other agencies running the same playbook.</p>
-      <p>That instinct — build the thing that actually works, then run it relentlessly — is still how every client account gets managed today.</p>
+      <p>A &amp; J Web Services didn't start with a polished agency pitch. It started with a real problem: finding enough of the right clients, consistently, without burning hours on manual outreach that rarely converted.</p>
+      <p>We tried the standard playbook — hiring people to cold call, building prospect lists by hand, reaching out one by one. It worked sometimes, but it was slow, expensive, and impossible to scale without the right people on the right days.</p>
+      <p class="lede">So instead of hiring more callers, we built a better system. That system became the A &amp; J Lead Scraper — a proprietary tool that finds niche local businesses, pulls their contact details, and drafts personalized AI outreach automatically.</p>
+      <p>That same instinct — identify the bottleneck, build past it — is still how we run every client account today. And it's why we can offer something most agencies genuinely can't: outbound prospecting powered by tools we actually built ourselves.</p>
     </div>
     <div class="story-visual reveal">
       <span class="amp" aria-hidden="true">&amp;</span>
       <div class="stat">
         <p class="quote">"Find the bottleneck. Build past it."</p>
         <p class="who">— A &amp; J Web Services</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROPRIETARY TOOLS ============ -->
+<section class="section">
+  <div class="wrap tools-grid">
+    <div class="tools-text reveal">
+      <div class="eyebrow">Our Edge</div>
+      <h2>We build the tools other agencies rent.</h2>
+      <p>Most marketing agencies use the same off-the-shelf software stack. We do things differently — our team has developed proprietary, custom-built lead generation and analysis software that powers both our own client work and the outreach tools we sell to other agencies.</p>
+      <p>That means when we run outbound prospecting for a client, it's not through a $99/month third-party tool everyone else is using. It's through systems we designed specifically around how local B2B outreach actually works.</p>
+    </div>
+    <div class="tools-cards reveal">
+      <div class="tool-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <span>Proprietary Lead Engine</span>
+      </div>
+      <div class="tool-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        <span>AI Personalization</span>
+      </div>
+      <div class="tool-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        <span>Multi-Channel Automation</span>
+      </div>
+      <div class="tool-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        <span>Real-Time Analytics</span>
       </div>
     </div>
   </div>
@@ -982,6 +1105,55 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   </div>
 </section>
 
+<!-- ============ SEO AUDIT ============ -->
+<section class="section section--navy" id="seo-audit">
+  <div class="wrap audit-grid">
+    <div class="audit-text reveal">
+      <div class="eyebrow" style="color:var(--sky);">Free Offer</div>
+      <h2>Find out how your website actually ranks.</h2>
+      <p>Most business owners have no idea how their site looks to Google or how it compares to competitors. Enter your URL and email below and we'll send you a free SEO &amp; performance audit — what's working, what's not, and what to fix first.</p>
+      <ul class="audit-list">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Search visibility &amp; keyword presence
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Page speed &amp; mobile performance
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          On-page SEO gaps &amp; quick wins
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Competitor comparison snapshot
+        </li>
+      </ul>
+    </div>
+    <form class="audit-form reveal" id="auditForm" action="https://formspree.io/f/xpqeeknw" method="POST">
+      <input type="hidden" name="_subject" value="Free SEO Audit Request — A &amp; J Web Services">
+      <div class="field">
+        <label for="audit-name">Your Name</label>
+        <input id="audit-name" name="name" type="text" placeholder="Jane Smith" required>
+      </div>
+      <div class="field">
+        <label for="audit-email">Email Address</label>
+        <input id="audit-email" name="email" type="email" placeholder="jane@yourbusiness.com" required>
+      </div>
+      <div class="field">
+        <label for="audit-url">Your Website URL</label>
+        <input id="audit-url" name="website_url" type="url" placeholder="https://yourbusiness.com" required>
+      </div>
+      <button type="submit" class="btn btn--primary" style="width:100%; justify-content:center;">
+        Get My Free Audit
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+      <p class="form-note" style="color:rgba(255,255,255,.55); margin-top:.8rem;">No spam. Your audit lands in your inbox within 1–2 business days.</p>
+    </form>
+  </div>
+</section>
+
 <!-- ============ CONTACT ============ -->
 <section class="section section--raised" id="contact">
   <div class="wrap contact-grid">
@@ -1002,6 +1174,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         </a>
         <a href="https://instagram.com/aj.webservices" aria-label="Instagram" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@aj.webservices" aria-label="YouTube" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>
         </a>
       </div>
     </div>
@@ -1059,6 +1234,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           </a>
           <a href="https://instagram.com/aj.webservices" aria-label="Instagram" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@aj.webservices" aria-label="YouTube" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>
           </a>
         </div>
       </div>
@@ -1250,6 +1428,31 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       }).catch(function(){
         if(submitBtn){ submitBtn.disabled = false; submitBtn.style.opacity = ''; }
         alert('Something went wrong sending that. Mind trying again, or emailing us directly at info@ajwebservices.com?');
+      });
+    });
+  }
+
+  /* ---------- SEO audit form -> Formspree ---------- */
+  var auditForm = document.getElementById('auditForm');
+  if(auditForm){
+    auditForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var data = new FormData(auditForm);
+      var submitBtn = auditForm.querySelector('button[type="submit"]');
+      if(submitBtn){ submitBtn.disabled = true; submitBtn.style.opacity = '.6'; }
+      fetch(auditForm.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(function(response){
+        if(response.ok){
+          auditForm.innerHTML = '<p class="form-success" style="color:var(--on-navy); padding:2rem 0;">You\'re on the list — your free SEO audit will be in your inbox within 1–2 business days.</p>';
+        } else {
+          throw new Error('submission failed');
+        }
+      }).catch(function(){
+        if(submitBtn){ submitBtn.disabled = false; submitBtn.style.opacity = ''; }
+        alert('Something went wrong. Please try again or email us at info@ajwebservices.com');
       });
     });
   }
