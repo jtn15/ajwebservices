@@ -488,17 +488,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   display:flex;
   gap: 1.4rem;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  overflow-y: visible;
   padding-bottom: 1.6rem;
+  padding-top: 8px;
   margin: 0 calc(var(--pad) * -1);
   padding-left: var(--pad);
   padding-right: var(--pad);
   scrollbar-width: none;
+  scroll-behavior: smooth;
 }
 .services-rail::-webkit-scrollbar{ display:none; }
 .service-card{
   flex: 0 0 clamp(260px, 70vw, 330px);
-  scroll-snap-align: start;
   background: var(--paper-raised);
   border: 1px solid var(--line);
   border-radius: var(--radius-sharp);
@@ -536,22 +537,29 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .service-card p{ color: var(--slate); font-size: .96rem; line-height: 1.6; }
 
 .rail-progress{
-  height: 2px; background: var(--line); border-radius: 2px; overflow:hidden;
-  margin-top: .4rem;
+  height: 5px;
+  background: var(--line);
+  border-radius: 99px;
+  overflow: visible;
+  margin-top: 1rem;
+  position: relative;
+  cursor: pointer;
 }
-.section--dark .rail-progress{ background: rgba(255,255,255,.1); }
+.section--dark .rail-progress{ background: rgba(255,255,255,.12); }
 .rail-progress span{
-  display:block; height:100%; width: 25%; background: var(--sky);
-  transition: transform .2s var(--ease), width .2s var(--ease);
+  display: block;
+  height: 100%;
+  min-width: 40px;
+  background: var(--sky);
+  border-radius: 99px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: grab;
+  transition: background .15s;
 }
-.rail-hint{
-  display:flex; justify-content: space-between; align-items:center;
-  font-size: .82rem; color: var(--slate-soft); margin-top: .6rem;
-}
-.section--dark .rail-hint span{ color: rgba(255,255,255,.35); }
-@media (min-width: 860px){ .rail-hint{ display:none; } }
-/* never block pointer events on the rail itself */
-.services-rail{ pointer-events: auto !important; }
+.rail-progress span:active{ cursor: grabbing; background: var(--sky-dim); }
+.rail-progress span:hover{ background: #5b9cf6; }
 
 /* ---------- PROCESS TIMELINE ---------- */
 .process-list{
@@ -987,7 +995,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       </article>
     </div>
     <div class="rail-progress"><span></span></div>
-    <div class="rail-hint"><span>Swipe to see all six</span><span>01 — 06</span></div>
+    <div class="rail-hint"><span>← Scroll to see all our services →</span></div>
   </div>
 </section>
 
@@ -1327,23 +1335,65 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     });
   }
 
-  /* ---------- services rail progress + drag-to-scroll ---------- */
+  /* ---------- services rail — draggable scrollbar ---------- */
   var rail = document.querySelector('.services-rail');
-  var railProgress = document.querySelector('.rail-progress span');
-  if(rail){
-    function updateProgress(){
-      if(!railProgress) return;
-      var max = rail.scrollWidth - rail.clientWidth;
-      var pct = max > 0 ? (rail.scrollLeft / max) : 0;
-      var cardW = 100 / Math.max(1, rail.children.length);
-      railProgress.style.width = cardW + '%';
-      railProgress.style.transform = 'translateX(' + (pct * (100 / cardW - 1) * 100) + '%)';
-    }
-    rail.addEventListener('scroll', updateProgress, { passive: true });
-    updateProgress();
+  var trackEl = document.querySelector('.rail-progress');
+  var thumbEl = document.querySelector('.rail-progress span');
+  if(rail && trackEl && thumbEl){
 
+    function updateThumb(){
+      var max = rail.scrollWidth - rail.clientWidth;
+      if(max <= 0){ thumbEl.style.width='100%'; thumbEl.style.left='0'; return; }
+      var pct = rail.scrollLeft / max;
+      var trackW = trackEl.clientWidth;
+      var thumbW = Math.max(40, trackW * (rail.clientWidth / rail.scrollWidth));
+      var thumbLeft = pct * (trackW - thumbW);
+      thumbEl.style.width = thumbW + 'px';
+      thumbEl.style.left = thumbLeft + 'px';
+      thumbEl.style.transform = 'none';
+    }
+
+    rail.addEventListener('scroll', updateThumb, { passive: true });
+    window.addEventListener('resize', updateThumb);
+    updateThumb();
+
+    // Make thumb draggable
+    var dragging = false, dragStartX, dragStartLeft;
+    thumbEl.addEventListener('pointerdown', function(e){
+      e.preventDefault();
+      dragging = true;
+      dragStartX = e.clientX;
+      dragStartLeft = parseFloat(thumbEl.style.left) || 0;
+      thumbEl.setPointerCapture(e.pointerId);
+      thumbEl.style.opacity = '1';
+    });
+    thumbEl.addEventListener('pointermove', function(e){
+      if(!dragging) return;
+      var max = rail.scrollWidth - rail.clientWidth;
+      var trackW = trackEl.clientWidth;
+      var thumbW = parseFloat(thumbEl.style.width) || 40;
+      var newLeft = Math.max(0, Math.min(trackW - thumbW, dragStartLeft + (e.clientX - dragStartX)));
+      rail.scrollLeft = (newLeft / (trackW - thumbW)) * max;
+    });
+    ['pointerup','pointercancel'].forEach(function(ev){
+      thumbEl.addEventListener(ev, function(){ dragging = false; });
+    });
+
+    // Click on track (not thumb) to jump
+    trackEl.addEventListener('click', function(e){
+      if(e.target === thumbEl) return;
+      var rect = trackEl.getBoundingClientRect();
+      var clickX = e.clientX - rect.left;
+      var trackW = trackEl.clientWidth;
+      var thumbW = parseFloat(thumbEl.style.width) || 40;
+      var max = rail.scrollWidth - rail.clientWidth;
+      rail.scrollLeft = ((clickX - thumbW/2) / (trackW - thumbW)) * max;
+    });
+
+    // Drag on the rail itself (mouse drag to scroll)
     var isDown = false, startX, scrollStart;
     rail.addEventListener('pointerdown', function(e){
+      if(e.target === thumbEl || e.target === trackEl) return;
       isDown = true; startX = e.clientX; scrollStart = rail.scrollLeft;
       rail.setPointerCapture(e.pointerId);
     });
