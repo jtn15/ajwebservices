@@ -178,6 +178,43 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .section--raised{ background: var(--paper-raised); }
 .section--dark{ background: #080e1a; }
 
+/* ---- marquee ---- */
+.marquee-strip{
+  background: var(--navy);
+  border-top: 1px solid rgba(255,255,255,.07);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  overflow: hidden;
+  padding: .85rem 0;
+  white-space: nowrap;
+}
+.marquee-track{
+  display: inline-flex;
+  align-items: center;
+  gap: 1.8rem;
+  animation: marqueeScroll 28s linear infinite;
+  will-change: transform;
+}
+.marquee-strip:hover .marquee-track{ animation-play-state: paused; }
+.marquee-track span{
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+}
+.marquee-dot{ color: var(--sky) !important; font-size: .5rem !important; }
+@keyframes marqueeScroll{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-50%); }
+}
+
+/* ---- bigger section headers ---- */
+.section-head h2{
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  line-height: 1.08;
+}
+
 .section-head{ max-width: 640px; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
 .section-head h2{ font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1.1; }
 .section-head .sub{ margin-top: 1rem; font-size: 1.08rem; color: var(--slate); }
@@ -385,11 +422,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .hero.is-loaded .amp-mark{ transform: rotate(-4deg) scale(1); opacity: 1; }
 
-.hero-inner{ position: relative; z-index: 1; max-width: 760px; }
+.hero-inner{ position: relative; z-index: 1; max-width: 900px; }
 .hero-title{
-  font-size: clamp(2.7rem, 6vw, 5.1rem);
-  line-height: 1.04;
-  font-weight: 600;
+  font-size: clamp(3.4rem, 7.5vw, 6.8rem);
+  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: -.02em;
 }
 .hero-title em{
   font-style: italic;
@@ -920,10 +958,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   <span class="amp-mark" aria-hidden="true">&amp;</span>
   <div class="wrap hero-inner">
     <h1 class="hero-title">
-      <span class="line"><span>Your brand <em>&amp;</em></span></span>
-      <span class="line"><span>our team, as one.</span></span>
+      <span class="line"><span>More customers.</span></span>
+      <span class="line"><span>Less guesswork <em>&amp;</em></span></span>
+      <span class="line"><span>zero autopilot.</span></span>
     </h1>
-    <p class="hero-sub">A & J Web Services runs the social media, ad campaigns, and content that turn your business into the obvious choice online — managed hands-on, not on autopilot.</p>
+    <p class="hero-sub">We build premium websites that convert, run your social media and ads hands-on, and generate outbound leads on autopilot — so your business becomes the obvious choice in your market.</p>
     <div class="hero-ctas">
       <a href="#contact" class="btn btn--primary">
         Start a Project
@@ -933,16 +972,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
     <div class="hero-meta">
       <div>
-        <b>What We Run</b>
-        <span>Social, ads, content &amp; campaigns</span>
+        <b>Premium Websites</b>
+        <span>Built to convert visitors into clients</span>
       </div>
       <div>
-        <b>Also Behind</b>
-        <span>The A &amp; J Lead Scraper, for agencies</span>
+        <b>Marketing &amp; Ads</b>
+        <span>Social, content &amp; paid campaigns</span>
       </div>
       <div>
-        <b>How We Work</b>
-        <span>Hands-on, one account at a time</span>
+        <b>Lead Generation</b>
+        <span>Outbound on autopilot via Lead Scraper</span>
       </div>
     </div>
   </div>
@@ -952,17 +991,42 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   </div>
 </section>
 
+<!-- ============ MARQUEE ============ -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Premium Websites</span><span class="marquee-dot">·</span>
+    <span>Social Media Growth</span><span class="marquee-dot">·</span>
+    <span>Paid Advertising</span><span class="marquee-dot">·</span>
+    <span>Outbound Lead Generation</span><span class="marquee-dot">·</span>
+    <span>Content Creation</span><span class="marquee-dot">·</span>
+    <span>Email &amp; SMS Marketing</span><span class="marquee-dot">·</span>
+    <span>Campaign Optimization</span><span class="marquee-dot">·</span>
+    <span>Premium Websites</span><span class="marquee-dot">·</span>
+    <span>Social Media Growth</span><span class="marquee-dot">·</span>
+    <span>Paid Advertising</span><span class="marquee-dot">·</span>
+    <span>Outbound Lead Generation</span><span class="marquee-dot">·</span>
+    <span>Content Creation</span><span class="marquee-dot">·</span>
+    <span>Email &amp; SMS Marketing</span><span class="marquee-dot">·</span>
+    <span>Campaign Optimization</span><span class="marquee-dot">·</span>
+  </div>
+</div>
+
 <!-- ============ SERVICES ============ -->
 <section class="section section--dark" id="services">
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow" style="color:var(--sky);">What We Do</div>
-      <h2 style="color:#fff;">Six services. One coordinated push.</h2>
+      <h2 style="color:#fff;">Seven services. One coordinated push.</h2>
       <p class="sub" style="color:rgba(255,255,255,.55);">Every account gets the same core toolkit — run together so nothing pulls in a different direction.</p>
     </div>
   </div>
   <div class="wrap services-rail-wrap">
     <div class="services-rail is-visible">
+      <article class="service-card">
+        <span class="service-tag">Websites · Design &amp; Build</span>
+        <h3>Premium Website Design</h3>
+        <p>We build fast, conversion-focused websites that funnel visitors into paying clients — designed to represent your brand and built to close deals while you sleep.</p>
+      </article>
       <article class="service-card">
         <span class="service-tag">Social · Management</span>
         <h3>Social Media Management</h3>
@@ -1068,11 +1132,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   <div class="wrap tools-grid">
     <div class="tools-text reveal">
       <div class="eyebrow">Our Edge</div>
-      <h2>We build the tools other agencies rent.</h2>
-      <p>Most marketing agencies use the same off-the-shelf software stack. We do things differently — our team has developed proprietary, custom-built lead generation and analysis software that powers both our own client work and the outreach tools we sell to other agencies.</p>
-      <p>That means when we run outbound prospecting for a client, it's not through a $99/month third-party tool everyone else is using. It's through systems we designed specifically around how local B2B outreach actually works.</p>
+      <h2>We build the tools — and the websites — other agencies outsource.</h2>
+      <p>Most marketing agencies use the same off-the-shelf software stack and subcontract their web work. We do both in-house — custom-built lead generation software that powers our own prospecting, and premium websites designed specifically to turn visitors into paying clients.</p>
+      <p>That means when we build your site, it's not a template. And when we run outbound prospecting for a client, it's not through a $99/month tool everyone else is using. It's systems we built, running the way we know they work.</p>
     </div>
     <div class="tools-cards reveal">
+      <div class="tool-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <span>Premium Website Design</span>
+      </div>
       <div class="tool-badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         <span>Proprietary Lead Engine</span>
@@ -1080,10 +1148,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="tool-badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
         <span>AI Personalization</span>
-      </div>
-      <div class="tool-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        <span>Multi-Channel Automation</span>
       </div>
       <div class="tool-badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
