@@ -534,6 +534,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   padding-right: var(--pad);
   scrollbar-width: none;
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
 }
 .services-rail::-webkit-scrollbar{ display:none; }
 .service-card{
@@ -575,13 +577,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .service-card p{ color: var(--slate); font-size: .96rem; line-height: 1.6; }
 
 .rail-progress{
-  height: 5px;
+  height: 4px;
   background: var(--line);
   border-radius: 99px;
-  overflow: visible;
+  overflow: hidden;
   margin-top: 1rem;
   position: relative;
-  cursor: pointer;
 }
 .section--dark .rail-progress{ background: rgba(255,255,255,.12); }
 .rail-progress span{
@@ -591,13 +592,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   background: var(--sky);
   border-radius: 99px;
   position: absolute;
-  top: 0;
-  left: 0;
-  cursor: grab;
-  transition: background .15s;
+  top: 0; left: 0;
+  transition: width .1s;
 }
-.rail-progress span:active{ cursor: grabbing; background: var(--sky-dim); }
-.rail-progress span:hover{ background: #5b9cf6; }
 
 /* ---------- PROCESS TIMELINE ---------- */
 .process-list{
@@ -1508,75 +1505,31 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     });
   }
 
-  /* ---------- services rail — draggable scrollbar ---------- */
+  /* ---------- services rail — wheel scroll + progress bar ---------- */
   var rail = document.querySelector('.services-rail');
-  var trackEl = document.querySelector('.rail-progress');
   var thumbEl = document.querySelector('.rail-progress span');
-  if(rail && trackEl && thumbEl){
-
+  if(rail){
     function updateThumb(){
+      if(!thumbEl) return;
       var max = rail.scrollWidth - rail.clientWidth;
       if(max <= 0){ thumbEl.style.width='100%'; thumbEl.style.left='0'; return; }
       var pct = rail.scrollLeft / max;
-      var trackW = trackEl.clientWidth;
+      var trackW = thumbEl.parentElement.clientWidth;
       var thumbW = Math.max(40, trackW * (rail.clientWidth / rail.scrollWidth));
-      var thumbLeft = pct * (trackW - thumbW);
       thumbEl.style.width = thumbW + 'px';
-      thumbEl.style.left = thumbLeft + 'px';
-      thumbEl.style.transform = 'none';
+      thumbEl.style.left = (pct * (trackW - thumbW)) + 'px';
     }
-
     rail.addEventListener('scroll', updateThumb, { passive: true });
     window.addEventListener('resize', updateThumb);
     updateThumb();
 
-    // Make thumb draggable
-    var dragging = false, dragStartX, dragStartLeft;
-    thumbEl.addEventListener('pointerdown', function(e){
-      e.preventDefault();
-      dragging = true;
-      dragStartX = e.clientX;
-      dragStartLeft = parseFloat(thumbEl.style.left) || 0;
-      thumbEl.setPointerCapture(e.pointerId);
-      thumbEl.style.opacity = '1';
-    });
-    thumbEl.addEventListener('pointermove', function(e){
-      if(!dragging) return;
-      var max = rail.scrollWidth - rail.clientWidth;
-      var trackW = trackEl.clientWidth;
-      var thumbW = parseFloat(thumbEl.style.width) || 40;
-      var newLeft = Math.max(0, Math.min(trackW - thumbW, dragStartLeft + (e.clientX - dragStartX)));
-      rail.scrollLeft = (newLeft / (trackW - thumbW)) * max;
-    });
-    ['pointerup','pointercancel'].forEach(function(ev){
-      thumbEl.addEventListener(ev, function(){ dragging = false; });
-    });
-
-    // Click on track (not thumb) to jump
-    trackEl.addEventListener('click', function(e){
-      if(e.target === thumbEl) return;
-      var rect = trackEl.getBoundingClientRect();
-      var clickX = e.clientX - rect.left;
-      var trackW = trackEl.clientWidth;
-      var thumbW = parseFloat(thumbEl.style.width) || 40;
-      var max = rail.scrollWidth - rail.clientWidth;
-      rail.scrollLeft = ((clickX - thumbW/2) / (trackW - thumbW)) * max;
-    });
-
-    // Drag on the rail itself (mouse drag to scroll)
-    var isDown = false, startX, scrollStart;
-    rail.addEventListener('pointerdown', function(e){
-      if(e.target === thumbEl || e.target === trackEl) return;
-      isDown = true; startX = e.clientX; scrollStart = rail.scrollLeft;
-      rail.setPointerCapture(e.pointerId);
-    });
-    rail.addEventListener('pointermove', function(e){
-      if(!isDown) return;
-      rail.scrollLeft = scrollStart - (e.clientX - startX);
-    });
-    ['pointerup','pointercancel','pointerleave'].forEach(function(evt){
-      rail.addEventListener(evt, function(){ isDown = false; });
-    });
+    // Hover over cards → mouse wheel scrolls sideways
+    rail.addEventListener('wheel', function(e){
+      if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
+        e.preventDefault();
+        rail.scrollLeft += e.deltaY * 1.5;
+      }
+    }, { passive: false });
   }
 
   /* ---------- lead scraper demo animation ---------- */
