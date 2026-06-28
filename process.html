@@ -375,6 +375,40 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .cta-band p{ color:var(--on-navy-soft); margin-top:.5rem; }
 .footer-bottom a{ text-decoration:underline; text-underline-offset:2px; }
 @media (max-width:640px){ .timeline{ padding-left:2.2rem; } .timeline-dot{ left:-2.2rem; width:1.4rem; height:1.4rem; font-size:.6rem; } }
+
+/* ---- custom cursor ---- */
+@media(hover: hover) and (pointer: fine){
+  *, *::before, *::after{ cursor: none !important; }
+  .cursor-dot{
+    position: fixed;
+    top: 0; left: 0;
+    width: 8px; height: 8px;
+    background: #3b82f6;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate3d(-50%,-50%,0);
+    transition: width .15s, height .15s, background .15s, opacity .2s;
+    will-change: transform;
+  }
+  .cursor-ring{
+    position: fixed;
+    top: 0; left: 0;
+    width: 38px; height: 38px;
+    border: 1.5px solid rgba(59,130,246,.55);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate3d(-50%,-50%,0);
+    transition: width .2s, height .2s, border-color .2s, background .2s, opacity .2s;
+    will-change: transform;
+  }
+  .cursor-dot.is-hovering{ width: 10px; height: 10px; background: #fff; }
+  .cursor-ring.is-hovering{ width: 54px; height: 54px; border-color: rgba(59,130,246,.75); background: rgba(59,130,246,.07); }
+  .cursor-dot.is-clicking{ width: 5px; height: 5px; background: #fff; }
+  .cursor-ring.is-clicking{ width: 28px; height: 28px; border-color: #3b82f6; background: rgba(59,130,246,.12); }
+  .cursor-dot.is-hidden, .cursor-ring.is-hidden{ opacity: 0; }
+}
 </style>
 </head>
 <body>
@@ -577,5 +611,39 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 })();
 </script>
 <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "d7f2d53a95964421a01f58c56e523cc6"}'></script><!-- End Cloudflare Web Analytics -->
+
+<script>
+/* ---- custom cursor ---- */
+(function(){
+  if(!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  var dot = document.createElement('div'); dot.className = 'cursor-dot';
+  var ring = document.createElement('div'); ring.className = 'cursor-ring';
+  document.body.appendChild(dot);
+  document.body.appendChild(ring);
+  var mx = window.innerWidth/2, my = window.innerHeight/2;
+  var rx = mx, ry = my;
+  function lerp(a,b,t){ return a+(b-a)*t; }
+  document.addEventListener('mousemove', function(e){
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = 'translate3d(calc('+mx+'px - 50%),calc('+my+'px - 50%),0)';
+  });
+  (function loop(){
+    rx = lerp(rx,mx,.12); ry = lerp(ry,my,.12);
+    ring.style.transform = 'translate3d(calc('+rx+'px - 50%),calc('+ry+'px - 50%),0)';
+    requestAnimationFrame(loop);
+  })();
+  var sel = 'a,button,input,textarea,select,[role="button"],.service-card,.who-card,.feature-card,.demo-tab,.dt-copy,.price-card-new,.faq-q,.btn,.who-card,.timeline-item,.tool-badge,.stat-item';
+  document.addEventListener('mouseover', function(e){
+    if(e.target.closest(sel)){ dot.classList.add('is-hovering'); ring.classList.add('is-hovering'); }
+  });
+  document.addEventListener('mouseout', function(e){
+    if(e.target.closest(sel)){ dot.classList.remove('is-hovering'); ring.classList.remove('is-hovering'); }
+  });
+  document.addEventListener('mousedown', function(){ dot.classList.add('is-clicking'); ring.classList.add('is-clicking'); });
+  document.addEventListener('mouseup', function(){ dot.classList.remove('is-clicking'); ring.classList.remove('is-clicking'); });
+  document.addEventListener('mouseleave', function(){ dot.classList.add('is-hidden'); ring.classList.add('is-hidden'); });
+  document.addEventListener('mouseenter', function(){ dot.classList.remove('is-hidden'); ring.classList.remove('is-hidden'); });
+})();
+</script>
 </body>
 </html>
