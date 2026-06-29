@@ -960,6 +960,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .final-cta .btn{ margin-top: 2.2rem; }
 
 </style>
+<style>html{scroll-padding-top:5.5rem;}:target{scroll-margin-top:5.5rem;}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}</style>
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
@@ -1011,7 +1012,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <span class="promo-banner-text">Founders Offer — the first 25 subscribers lock in $40/month for a full year.</span>
     <span class="promo-banner-cta">See the offer →</span>
   </a>
-  <button class="promo-banner-close" id="promoBannerClose" aria-label="Dismiss">×</button>
+  <button class="promo-banner-close" id="promoBannerClose" aria-label="Dismiss"><span aria-hidden="true">×</span></button>
 </div>
 <script>
 (function(){
@@ -1052,9 +1053,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
   </div>
 </header>
+<main id="main" tabindex="-1">
 
 <!-- ============ HERO ============ -->
-<section class="ls-hero" id="main" tabindex="-1">
+<section class="ls-hero">
   <div class="wrap">
     <a href="index.html" class="ls-back">
       <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -1070,7 +1072,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             Get Instant Access
             <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </a>
-          <span class="ls-price-pill"><s>$75/mo</s> <b>$40/mo</b> launch price</span>
+          <span class="ls-price-pill"><s>$75/mo</s> <strong>$40/mo</strong> launch price</span>
         </div>
       </div>
 
@@ -1391,6 +1393,56 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   </div>
 </section>
 
+<!-- ============ GROWTH GRAPH ============ -->
+<section class="section" id="growth">
+  <div class="wrap" style="max-width:980px;">
+    <div class="reveal" style="text-align:center;margin-bottom:2.2rem;">
+      <div class="eyebrow" style="justify-content:center;">What compounding outreach looks like</div>
+      <h2 style="margin-bottom:.6rem;">Leads stack up while you sleep.</h2>
+      <p style="max-width:34rem;margin:0 auto;color:var(--slate);">Every day the scraper runs, your pipeline grows. This is a typical ramp once outreach is automated instead of done by hand.</p>
+    </div>
+    <div class="reveal" style="background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-sharp);padding:clamp(1.2rem,3vw,2rem);box-shadow:0 20px 50px -28px rgba(10,27,48,.4);">
+      <svg viewBox="0 0 720 340" role="img" aria-label="Line chart showing cumulative leads generated growing from about 120 in week 1 to roughly 4,200 by week 8." style="width:100%;height:auto;display:block;font-family:'IBM Plex Mono',monospace;">
+        <defs>
+          <linearGradient id="lsArea" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2F7FE0" stop-opacity=".28"/>
+            <stop offset="100%" stop-color="#2F7FE0" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <!-- gridlines + y labels -->
+        <g stroke="#E1E7EF" stroke-width="1">
+          <line x1="60" y1="60" x2="700" y2="60"/>
+          <line x1="60" y1="120" x2="700" y2="120"/>
+          <line x1="60" y1="180" x2="700" y2="180"/>
+          <line x1="60" y1="240" x2="700" y2="240"/>
+          <line x1="60" y1="290" x2="700" y2="290"/>
+        </g>
+        <g fill="#9BA8BC" font-size="11" text-anchor="end">
+          <text x="50" y="64">4k</text><text x="50" y="124">3k</text>
+          <text x="50" y="184">2k</text><text x="50" y="244">1k</text><text x="50" y="294">0</text>
+        </g>
+        <!-- area + line -->
+        <polygon points="60,272 151,258 242,236 333,205 424,170 515,128 606,84 697,46 697,290 60,290" fill="url(#lsArea)"/>
+        <polyline points="60,272 151,258 242,236 333,205 424,170 515,128 606,84 697,46" fill="none" stroke="#2F7FE0" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- points -->
+        <g fill="#2F7FE0">
+          <circle cx="60" cy="272" r="4"/><circle cx="151" cy="258" r="4"/><circle cx="242" cy="236" r="4"/><circle cx="333" cy="205" r="4"/><circle cx="424" cy="170" r="4"/><circle cx="515" cy="128" r="4"/><circle cx="606" cy="84" r="4"/>
+          <circle cx="697" cy="46" r="6" fill="#122A4A"/>
+        </g>
+        <!-- end annotation -->
+        <g>
+          <rect x="600" y="14" width="98" height="24" rx="3" fill="#122A4A"/>
+          <text x="649" y="30" fill="#fff" font-size="12" font-weight="600" text-anchor="middle">4,200 leads</text>
+        </g>
+        <!-- x labels -->
+        <g fill="#9BA8BC" font-size="11" text-anchor="middle">
+          <text x="60" y="312">W1</text><text x="151" y="312">W2</text><text x="242" y="312">W3</text><text x="333" y="312">W4</text><text x="424" y="312">W5</text><text x="515" y="312">W6</text><text x="606" y="312">W7</text><text x="697" y="312">W8</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
 <!-- ============ ABOUT ============ -->
 <section class="section section--raised">
   <div class="wrap about-grid">
@@ -1427,7 +1479,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Google Sheets sync</li>
           <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Standard email support</li>
         </ul>
-        <a href="https://buy.stripe.com/bJe00kcpi80C7HfaWi3F602" class="price-cta-new ghost" target="_blank" rel="noopener">Get Started</a>
+        <a href="https://buy.stripe.com/bJe00kcpi80C7HfaWi3F602" class="price-cta-new ghost" target="_blank" rel="noopener">Get Started<span class="sr-only"> (opens in new tab)</span></a>
       </div>
 
       <!-- Founder's Rate -->
@@ -1443,7 +1495,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Direct line to the founders</li>
           <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Early access to new features</li>
         </ul>
-        <a href="https://buy.stripe.com/cNieVedtm2Gi1iR1lI3F601" class="price-cta-new primary" target="_blank" rel="noopener">Claim Founder's Rate</a>
+        <a href="https://buy.stripe.com/cNieVedtm2Gi1iR1lI3F601" class="price-cta-new primary" target="_blank" rel="noopener">Claim Founder's Rate<span class="sr-only"> (opens in new tab)</span></a>
       </div>
 
       <!-- Agency -->
@@ -1507,7 +1559,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <h2 style="color:#fff;">Ready to put outbound on autopilot?</h2>
     <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
       <a href="https://buy.stripe.com/cNieVedtm2Gi1iR1lI3F601" class="btn btn--primary" target="_blank" rel="noopener">
-        Claim Founder's Rate
+        Claim Founder's Rate<span class="sr-only"> (opens in new tab)</span>
         <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
       <button class="price-cta-new ghost" id="agencyModalBtn2" style="cursor:pointer;padding:.75rem 1.4rem;border-radius:var(--radius-pill);font-family:var(--font-body);font-size:.9rem;font-weight:600;">Agency Pricing</button>
@@ -1516,6 +1568,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 </section>
 
 <!-- ============ FOOTER ============ -->
+</main>
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-grid">
@@ -1536,18 +1589,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="footer-col">
         <h3>Connect</h3>
         <div class="social-row">
-          <a href="https://facebook.com/profile.php?id=61584159706556" aria-label="Facebook" target="_blank" rel="noopener">
+          <a href="https://facebook.com/profile.php?id=61584159706556" aria-label="Facebook (opens in new tab)" target="_blank" rel="noopener">
             <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
           </a>
-          <a href="https://instagram.com/aj.webservices" aria-label="Instagram" target="_blank" rel="noopener">
+          <a href="https://instagram.com/aj.webservices" aria-label="Instagram (opens in new tab)" target="_blank" rel="noopener">
             <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
           </a>
-          <a href="https://www.youtube.com/@aj.webservices" aria-label="YouTube" target="_blank" rel="noopener">
+          <a href="https://www.youtube.com/@aj.webservices" aria-label="YouTube (opens in new tab)" target="_blank" rel="noopener">
             <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>
           </a>
 
           <div style="margin-top:1.1rem;">
-            <a href="https://www.producthunt.com/products/a-j-lead-scraper?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-a-j-lead-scraper" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.producthunt.com/products/a-j-lead-scraper?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-a-j-lead-scraper" target="_blank" rel="noopener noreferrer" aria-label="A &amp; J Lead Scraper on Product Hunt (opens in new tab)">
               <img alt="A &amp; J Lead Scraper on Product Hunt" width="200" height="43" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1183514&theme=neutral&t=1782718953765" style="display:block;">
             </a>
           </div>
@@ -1563,7 +1616,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             <p style="margin:4px 0 0;font-size:13px;color:rgba(255,255,255,.55);line-height:1.4;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">AI Lead Gen that finds, pitches, and sends on autopilot.</p>
           </div>
         </div>
-        <a href="https://www.producthunt.com/products/a-j-lead-scraper?embed=true&utm_source=embed&utm_medium=post_embed" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;padding:8px 16px;background:#ff6154;color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:600;">Check it out on Product Hunt →</a>
+        <a href="https://www.producthunt.com/products/a-j-lead-scraper?embed=true&utm_source=embed&utm_medium=post_embed" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;padding:8px 16px;background:#ff6154;color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:600;">Check it out on Product Hunt →<span class="sr-only"> (opens in new tab)</span></a>
       </div>
     </div>
     <div class="footer-bottom">

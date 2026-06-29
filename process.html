@@ -422,6 +422,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .cursor-dot.is-hidden, .cursor-ring.is-hidden{ opacity: 0; }
 }
 </style>
+<style>html{scroll-padding-top:5.5rem;}:target{scroll-margin-top:5.5rem;}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}</style>
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
@@ -448,12 +449,37 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
   </div>
 </header>
+<main id="main" tabindex="-1">
 
-<section class="section process-hero" id="main" tabindex="-1">
+<section class="section process-hero">
   <div class="wrap">
     <div class="eyebrow">How We Work</div>
     <h1>From discovery call to live campaigns, in four steps.</h1>
     <p class="sub">Most agencies make the "after you sign" part a black box. Here's exactly what happens at A & J Web Services, start to finish.</p>
+  </div>
+</section>
+
+<!-- ============ TIMELINE VISUAL ============ -->
+<section class="section" style="padding:clamp(2rem,5vw,3.5rem) 0;">
+  <div class="wrap" style="max-width:980px;">
+    <svg viewBox="0 0 920 150" role="img" aria-label="Timeline of the four steps: Discovery Call on day 1, Agreement on days 2 to 3, Onboarding on days 4 to 7, and Campaign Launch from day 8 onward." style="width:100%;height:auto;display:block;font-family:'IBM Plex Mono',monospace;">
+      <line x1="80" y1="60" x2="840" y2="60" stroke="#E1E7EF" stroke-width="3"/>
+      <line x1="80" y1="60" x2="840" y2="60" stroke="#2F7FE0" stroke-width="3"/>
+      <g text-anchor="middle">
+        <circle cx="80" cy="60" r="13" fill="#122A4A"/><text x="80" y="65" fill="#fff" font-size="13" font-weight="600">1</text>
+        <text x="80" y="98" fill="#101F33" font-size="13" font-weight="600">Discovery Call</text>
+        <text x="80" y="116" fill="#9BA8BC" font-size="11">Day 1</text>
+        <circle cx="333" cy="60" r="13" fill="#122A4A"/><text x="333" y="65" fill="#fff" font-size="13" font-weight="600">2</text>
+        <text x="333" y="98" fill="#101F33" font-size="13" font-weight="600">Agreement</text>
+        <text x="333" y="116" fill="#9BA8BC" font-size="11">Days 2–3</text>
+        <circle cx="587" cy="60" r="13" fill="#122A4A"/><text x="587" y="65" fill="#fff" font-size="13" font-weight="600">3</text>
+        <text x="587" y="98" fill="#101F33" font-size="13" font-weight="600">Onboarding</text>
+        <text x="587" y="116" fill="#9BA8BC" font-size="11">Days 4–7</text>
+        <circle cx="840" cy="60" r="13" fill="#2F7FE0"/><text x="840" y="65" fill="#fff" font-size="13" font-weight="600">4</text>
+        <text x="840" y="98" fill="#101F33" font-size="13" font-weight="600">Campaign Launch</text>
+        <text x="840" y="116" fill="#9BA8BC" font-size="11">Day 8 onward</text>
+      </g>
+    </svg>
   </div>
 </section>
 
@@ -558,13 +584,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <p>Book a call or send us a message and we'll put together a plan around your actual goals.</p>
       </div>
       <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-        <a href="https://calendar.app.google/784zs2xbuUyDoZuw5" class="btn btn--ghost" target="_blank" rel="noopener" style="color:var(--on-navy); border-color:rgba(255,255,255,.25);">Book a Call <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        <a href="https://calendar.app.google/784zs2xbuUyDoZuw5" class="btn btn--ghost" target="_blank" rel="noopener" style="color:var(--on-navy); border-color:rgba(255,255,255,.25);"><span>Book a Call</span><span class="sr-only"> (opens in new tab)</span> <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
         <a href="index.html#contact" class="btn btn--primary">Send a Message <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
       </div>
     </div>
   </div>
 </section>
 
+</main>
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-grid">
@@ -585,12 +612,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="footer-col">
         <h3>Connect</h3>
         <div class="social-row">
-          <a href="https://facebook.com/profile.php?id=61584159706556" aria-label="Facebook" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-          <a href="https://instagram.com/aj.webservices" aria-label="Instagram" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
-          <a href="https://www.youtube.com/@aj.webservices" aria-label="YouTube" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://facebook.com/profile.php?id=61584159706556" aria-label="Facebook (opens in new tab)" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://instagram.com/aj.webservices" aria-label="Instagram (opens in new tab)" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="https://www.youtube.com/@aj.webservices" aria-label="YouTube (opens in new tab)" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
 
           <div style="margin-top:1.1rem;">
-            <a href="https://www.producthunt.com/products/a-j-lead-scraper?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-a-j-lead-scraper" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.producthunt.com/products/a-j-lead-scraper?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-a-j-lead-scraper" target="_blank" rel="noopener noreferrer" aria-label="A &amp; J Lead Scraper on Product Hunt (opens in new tab)">
               <img alt="A &amp; J Lead Scraper on Product Hunt" width="200" height="43" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1183514&theme=neutral&t=1782718953765" style="display:block;">
             </a>
           </div>
@@ -606,7 +633,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             <p style="margin:4px 0 0;font-size:13px;color:rgba(255,255,255,.55);line-height:1.4;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">AI Lead Gen that finds, pitches, and sends on autopilot.</p>
           </div>
         </div>
-        <a href="https://www.producthunt.com/products/a-j-lead-scraper?embed=true&utm_source=embed&utm_medium=post_embed" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;padding:8px 16px;background:#ff6154;color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:600;">Check it out on Product Hunt →</a>
+        <a href="https://www.producthunt.com/products/a-j-lead-scraper?embed=true&utm_source=embed&utm_medium=post_embed" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;padding:8px 16px;background:#ff6154;color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:600;">Check it out on Product Hunt →<span class="sr-only"> (opens in new tab)</span></a>
       </div>
     </div>
     <div class="footer-bottom">
