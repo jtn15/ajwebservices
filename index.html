@@ -147,6 +147,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .section--navy .eyebrow::before{ background: var(--sky); }
 
 /* ---------- buttons ---------- */
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
 .btn{
   display:inline-flex;
   align-items:center;
@@ -402,7 +406,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .social-row{ display:flex; gap: .9rem; }
 .social-row a{
   width: 36px; height: 36px; border-radius: 50%;
-  border: 1px solid var(--line-on-navy);
+  border: 1px solid rgba(234,241,251,0.45);
   display:flex; align-items:center; justify-content:center;
   transition: background .2s, border-color .2s;
 }
@@ -411,6 +415,42 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 @media (max-width: 760px){
   .footer-grid{ grid-template-columns: 1fr; gap: 2.2rem; }
+}
+
+/* ===== RESULTS SHOWCASE (dashboard + ROI card) ===== */
+.rs-grid{ display:grid; grid-template-columns: 1fr 1.05fr; gap: clamp(2rem,5vw,4rem); align-items:center; }
+.rs-stats{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem 2rem; margin-top:2rem; }
+.rs-stat .rs-num{ font-family:var(--font-display); font-weight:700; font-size:2rem; line-height:1; color:var(--ink); }
+.rs-stat .rs-num span{ color:var(--sky); }
+.rs-stat .rs-lab{ font-family:var(--font-mono); font-size:.66rem; letter-spacing:.05em; text-transform:uppercase; color:var(--slate-soft); margin-top:.45rem; }
+.rs-device{ position:relative; }
+.rs-screens{ position:relative; background:linear-gradient(150deg,#16335a 0%,#0a1b30 100%); border-radius:10px; padding:1.5rem; box-shadow:0 30px 60px -22px rgba(10,27,48,.5); overflow:hidden; }
+.rs-screens::after{ content:""; position:absolute; top:-40%; right:-12%; width:60%; height:120%; background:radial-gradient(circle,rgba(47,127,224,.22),transparent 70%); pointer-events:none; }
+.rs-row{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; position:relative; z-index:1; }
+.rs-screen{ background:rgba(255,255,255,.05); border:1px solid rgba(234,241,251,.12); border-radius:var(--radius-sharp); padding:.9rem; }
+.rs-top{ display:flex; align-items:center; gap:.32rem; margin-bottom:.85rem; }
+.rs-top i{ width:7px; height:7px; border-radius:50%; background:rgba(234,241,251,.2); }
+.rs-cap{ font-family:var(--font-mono); font-size:.56rem; letter-spacing:.05em; color:rgba(234,241,251,.5); margin-left:auto; text-transform:uppercase; }
+.rs-bars{ display:flex; align-items:flex-end; gap:5px; height:76px; margin-bottom:.7rem; }
+.rs-bar{ flex:1; background:rgba(234,241,251,.14); border-radius:2px 2px 0 0; transform-origin:bottom; }
+.rs-bar.hot{ background:linear-gradient(180deg,var(--sky),var(--sky-dim)); }
+.rs-kpi{ font-family:var(--font-display); font-weight:700; font-size:1.45rem; color:#fff; }
+.rs-kpi-sub{ font-family:var(--font-mono); font-size:.56rem; color:rgba(234,241,251,.5); text-transform:uppercase; letter-spacing:.05em; }
+.rs-mini{ display:flex; flex-direction:column; gap:.5rem; }
+.rs-mini-r{ display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:.6rem; color:rgba(234,241,251,.55); }
+.rs-mini-r b{ color:#fff; font-weight:600; }
+.rs-float{ position:absolute; left:-16px; bottom:-20px; background:#fff; border-radius:var(--radius-sharp); padding:.8rem 1.05rem; box-shadow:0 18px 40px -14px rgba(10,27,48,.4); display:flex; align-items:center; gap:.7rem; z-index:3; }
+.rs-float-ic{ width:33px; height:33px; border-radius:var(--radius-sharp); background:#dcfce7; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.rs-float-ic svg{ width:17px; height:17px; stroke:#16a34a; }
+.rs-float-lab{ font-family:var(--font-mono); font-size:.55rem; letter-spacing:.07em; text-transform:uppercase; color:var(--slate-soft); margin-bottom:.12rem; }
+.rs-float-val{ font-family:var(--font-display); font-weight:700; font-size:1.1rem; color:var(--ink); line-height:1; }
+.rs-float-val span{ color:#16a34a; }
+@keyframes rs-grow{ from{ transform:scaleY(.12); } to{ transform:scaleY(1); } }
+.reveal.is-visible .rs-bar{ animation:rs-grow .7s var(--ease) both; }
+@media (prefers-reduced-motion: reduce){ .rs-bar{ animation:none !important; } }
+@media (max-width: 860px){
+  .rs-grid{ grid-template-columns:1fr; gap:2.6rem; }
+  .rs-float{ left:6px; bottom:-16px; }
 }
 
 </style>
@@ -936,6 +976,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 </style>
+<style>html{scroll-padding-top:5.5rem;}:target{scroll-margin-top:5.5rem;}</style>
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
@@ -987,7 +1028,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <span class="promo-banner-text">Founders Offer — the first 25 subscribers lock in $40/month for a full year.</span>
     <span class="promo-banner-cta">See the offer →</span>
   </a>
-  <button class="promo-banner-close" id="promoBannerClose" aria-label="Dismiss">×</button>
+  <button class="promo-banner-close" id="promoBannerClose" aria-label="Dismiss"><span aria-hidden="true">×</span></button>
 </div>
 <script>
 (function(){
@@ -1028,9 +1069,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
   </div>
 </header>
+<main id="main" tabindex="-1">
 
 <!-- ============ HERO ============ -->
-<section class="hero" id="main" tabindex="-1">
+<section class="hero">
   <span class="amp-mark" aria-hidden="true">&amp;</span>
   <div class="wrap hero-inner">
     <h1 class="hero-title">
@@ -1048,15 +1090,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
     <div class="hero-meta">
       <div>
-        <b>Premium Websites</b>
+        <strong>Premium Websites</strong>
         <span>Built to convert visitors into clients</span>
       </div>
       <div>
-        <b>Marketing &amp; Ads</b>
+        <strong>Marketing &amp; Ads</strong>
         <span>Social, content &amp; paid campaigns</span>
       </div>
       <div>
-        <b>Lead Generation</b>
+        <strong>Lead Generation</strong>
         <span>Outbound on autopilot via Lead Scraper</span>
       </div>
     </div>
@@ -1098,41 +1140,41 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   </div>
   <div class="wrap services-rail-wrap">
     <div class="services-rail is-visible" tabindex="0" role="group" aria-label="Services, scrollable horizontally">
-      <article class="service-card">
+      <div class="service-card">
         <span class="service-tag">Websites · Design &amp; Build</span>
         <h3>Premium Website Design</h3>
         <p>We build fast, conversion-focused websites that funnel visitors into paying clients — designed to represent your brand and built to close deals while you sleep.</p>
-      </article>
-      <article class="service-card">
+      </div>
+      <div class="service-card">
         <span class="service-tag">Social · Management</span>
         <h3>Social Media Management</h3>
         <p>Day-to-day posting, community replies, and a content calendar that actually keeps pace with your business.</p>
-      </article>
-      <article class="service-card">
+      </div>
+      <div class="service-card">
         <span class="service-tag">Social · Advertising</span>
         <h3>Social Media Advertising</h3>
         <p>Paid campaigns on the platforms your customers already scroll, sized to a budget that makes sense for where you are now.</p>
-      </article>
-      <article class="service-card">
+      </div>
+      <div class="service-card">
         <span class="service-tag">Content</span>
         <h3>Content Creation</h3>
         <p>Photo, video, and copy built around your actual brand voice — not a template dropped in from another client.</p>
-      </article>
-      <article class="service-card">
+      </div>
+      <div class="service-card">
         <span class="service-tag">Strategy · Optimization</span>
         <h3>Campaign Management &amp; Optimization</h3>
         <p>Every campaign gets watched and adjusted on an ongoing basis, so spend keeps moving toward what's actually working.</p>
-      </article>
-      <article class="service-card">
+      </div>
+      <div class="service-card">
         <span class="service-tag">Outbound · Prospecting</span>
         <h3>B2B Lead Generation</h3>
         <p>We don't wait for leads to find you. Using our proprietary prospecting engine, we actively identify and reach out to your ideal clients — industry-targeted, personalized, and automated at scale.</p>
-      </article>
-      <article class="service-card">
+      </div>
+      <div class="service-card">
         <span class="service-tag">Retention · Email &amp; SMS</span>
         <h3>Email &amp; SMS Marketing</h3>
         <p>Stay top of mind with the customers you've already earned. Automated sequences and targeted campaigns that drive repeat business and referrals.</p>
-      </article>
+      </div>
     </div>
     <div class="rail-progress"><span></span></div>
     <div class="rail-hint"><span>← Scroll to see all our services →</span></div>
@@ -1232,6 +1274,62 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         </div>
       </li>
     </ul>
+  </div>
+</section>
+
+<!-- ============ RESULTS SHOWCASE ============ -->
+<section class="section section--raised" id="results">
+  <div class="wrap rs-grid">
+    <div class="rs-text reveal">
+      <div class="eyebrow">Proof, not promises</div>
+      <h2>We don't guess. We measure.</h2>
+      <p>Every campaign and every lead is tracked, so you can see exactly what's working — traffic, replies, booked jobs, and revenue in one place. No vanity metrics, no waiting in the dark.</p>
+      <div class="rs-stats">
+        <div class="rs-stat"><div class="rs-num">&lt;<span>1</span>min</div><div class="rs-lab">Avg lead reply time</div></div>
+        <div class="rs-stat"><div class="rs-num"><span>24</span>/7</div><div class="rs-lab">Outreach always on</div></div>
+        <div class="rs-stat"><div class="rs-num"><span>100</span>%</div><div class="rs-lab">Tracked &amp; reported</div></div>
+        <div class="rs-stat"><div class="rs-num"><span>2</span>hr</div><div class="rs-lab">Site live, start to finish</div></div>
+      </div>
+    </div>
+    <div class="rs-device reveal">
+      <div class="rs-screens">
+        <div class="rs-row">
+          <div class="rs-screen">
+            <div class="rs-top"><i></i><i></i><i></i><span class="rs-cap">Leads</span></div>
+            <div class="rs-mini">
+              <div class="rs-mini-r"><span>New this week</span><strong>+38</strong></div>
+              <div class="rs-mini-r"><span>Replied &lt;1 min</span><strong>100%</strong></div>
+              <div class="rs-mini-r"><span>Booked calls</span><strong>21</strong></div>
+              <div class="rs-mini-r"><span>Recovered</span><strong>14</strong></div>
+              <div class="rs-mini-r"><span>Avg response</span><strong>0:42</strong></div>
+            </div>
+          </div>
+          <div class="rs-screen">
+            <div class="rs-top"><i></i><i></i><i></i><span class="rs-cap">Growth</span></div>
+            <div class="rs-bars">
+              <span class="rs-bar" style="height:40%"></span>
+              <span class="rs-bar" style="height:55%"></span>
+              <span class="rs-bar" style="height:48%"></span>
+              <span class="rs-bar" style="height:70%"></span>
+              <span class="rs-bar" style="height:62%"></span>
+              <span class="rs-bar hot" style="height:88%"></span>
+              <span class="rs-bar hot" style="height:100%"></span>
+            </div>
+            <div class="rs-kpi">$24,800</div>
+            <div class="rs-kpi-sub">Pipeline this month</div>
+          </div>
+        </div>
+      </div>
+      <div class="rs-float">
+        <span class="rs-float-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        </span>
+        <span>
+          <span class="rs-float-lab">ROI Performance</span>
+          <span class="rs-float-val"><span>+124%</span> Growth</span>
+        </span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1353,15 +1451,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <input type="hidden" name="_subject" value="Free SEO Audit Request — A &amp; J Web Services">
       <div class="field">
         <label for="audit-name">Your Name</label>
-        <input id="audit-name" name="name" type="text" placeholder="Jane Smith" required>
+        <input id="audit-name" name="name" type="text" autocomplete="name" placeholder="Jane Smith" required>
       </div>
       <div class="field">
         <label for="audit-email">Email Address</label>
-        <input id="audit-email" name="email" type="email" placeholder="jane@yourbusiness.com" required>
+        <input id="audit-email" name="email" type="email" autocomplete="email" placeholder="jane@yourbusiness.com" required>
       </div>
       <div class="field">
         <label for="audit-url">Your Website URL</label>
-        <input id="audit-url" name="website_url" type="url" placeholder="https://yourbusiness.com" required>
+        <input id="audit-url" name="website_url" type="url" autocomplete="url" placeholder="https://yourbusiness.com" required>
       </div>
       <button type="submit" class="btn btn--primary" style="width:100%; justify-content:center;">
         Get My Free Audit
@@ -1382,18 +1480,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="contact-alt">
         <p class="contact-alt-label">Prefer to talk it through? Book a call with our team.</p>
         <a href="https://calendar.app.google/784zs2xbuUyDoZuw5" class="btn btn--ghost" target="_blank" rel="noopener">
-          Book a Call
+          Book a Call<span class="sr-only"> (opens in new tab)</span>
           <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
       </div>
       <div class="social-row">
-        <a href="https://facebook.com/profile.php?id=61584159706556" aria-label="Facebook" target="_blank" rel="noopener">
+        <a href="https://facebook.com/profile.php?id=61584159706556" aria-label="Facebook (opens in new tab)" target="_blank" rel="noopener">
           <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
         </a>
-        <a href="https://instagram.com/aj.webservices" aria-label="Instagram" target="_blank" rel="noopener">
+        <a href="https://instagram.com/aj.webservices" aria-label="Instagram (opens in new tab)" target="_blank" rel="noopener">
           <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
         </a>
-        <a href="https://www.youtube.com/@aj.webservices" aria-label="YouTube" target="_blank" rel="noopener">
+        <a href="https://www.youtube.com/@aj.webservices" aria-label="YouTube (opens in new tab)" target="_blank" rel="noopener">
           <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>
         </a>
       </div>
@@ -1403,16 +1501,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="form-row">
         <div class="field">
           <label for="name">Name</label>
-          <input id="name" name="name" type="text" required>
+          <input id="name" name="name" type="text" autocomplete="name" required>
         </div>
         <div class="field">
           <label for="email">Email</label>
-          <input id="email" name="email" type="email" required>
+          <input id="email" name="email" type="email" autocomplete="email" required>
         </div>
       </div>
       <div class="field">
         <label for="business">Business / Website</label>
-        <input id="business" name="business" type="text">
+        <input id="business" name="business" type="text" autocomplete="organization">
       </div>
       <div class="field">
         <label for="message">What are you looking for help with?</label>
@@ -1428,6 +1526,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 </section>
 
 <!-- ============ FOOTER ============ -->
+</main>
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-grid">
@@ -1447,18 +1546,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="footer-col">
         <h3>Connect</h3>
         <div class="social-row">
-          <a href="https://facebook.com/profile.php?id=61584159706556" aria-label="Facebook" target="_blank" rel="noopener">
+          <a href="https://facebook.com/profile.php?id=61584159706556" aria-label="Facebook (opens in new tab)" target="_blank" rel="noopener">
             <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
           </a>
-          <a href="https://instagram.com/aj.webservices" aria-label="Instagram" target="_blank" rel="noopener">
+          <a href="https://instagram.com/aj.webservices" aria-label="Instagram (opens in new tab)" target="_blank" rel="noopener">
             <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
           </a>
-          <a href="https://www.youtube.com/@aj.webservices" aria-label="YouTube" target="_blank" rel="noopener">
+          <a href="https://www.youtube.com/@aj.webservices" aria-label="YouTube (opens in new tab)" target="_blank" rel="noopener">
             <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>
           </a>
 
           <div style="margin-top:1.1rem;">
-            <a href="https://www.producthunt.com/products/a-j-lead-scraper?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-a-j-lead-scraper" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.producthunt.com/products/a-j-lead-scraper?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-a-j-lead-scraper" target="_blank" rel="noopener noreferrer" aria-label="A &amp; J Lead Scraper on Product Hunt (opens in new tab)">
               <img alt="A &amp; J Lead Scraper on Product Hunt" width="200" height="43" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1183514&theme=neutral&t=1782718953765" style="display:block;">
             </a>
           </div>
@@ -1470,11 +1569,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
           <img alt="A &amp; J Lead Scraper" src="https://ph-files.imgix.net/c85d0850-092b-4f33-98c7-3cd34c8e2ffe.png?auto=compress,format&codec=mozjpeg&cs=strip&fit=crop&h=80&w=80" style="width:56px;height:56px;border-radius:8px;object-fit:cover;flex-shrink:0;">
           <div style="flex:1;min-width:0;">
-            <h3 style="margin:0;font-size:16px;font-weight:600;color:#fff;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">A &amp; J Lead Scraper</h3>
+            <p style="margin:0;font-size:16px;font-weight:600;color:#fff;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">A &amp; J Lead Scraper</p>
             <p style="margin:4px 0 0;font-size:13px;color:rgba(255,255,255,.55);line-height:1.4;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">AI Lead Gen that finds, pitches, and sends on autopilot.</p>
           </div>
         </div>
-        <a href="https://www.producthunt.com/products/a-j-lead-scraper?embed=true&utm_source=embed&utm_medium=post_embed" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;padding:8px 16px;background:#ff6154;color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:600;">Check it out on Product Hunt →</a>
+        <a href="https://www.producthunt.com/products/a-j-lead-scraper?embed=true&utm_source=embed&utm_medium=post_embed" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;padding:8px 16px;background:#ff6154;color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:600;">Check it out on Product Hunt →<span class="sr-only"> (opens in new tab)</span></a>
       </div>
     </div>
     <div class="footer-bottom">
