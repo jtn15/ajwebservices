@@ -332,7 +332,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   display:none;
   width: 38px; height: 38px;
   border-radius: 50%;
-  border: 1px solid var(--line);
+  border: 1px solid #6B7280;
   background: none;
   cursor:pointer;
   position: relative;
@@ -429,7 +429,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .rs-row{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; position:relative; z-index:1; }
 .rs-screen{ background:rgba(255,255,255,.05); border:1px solid rgba(234,241,251,.12); border-radius:var(--radius-sharp); padding:.9rem; }
 .rs-top{ display:flex; align-items:center; gap:.32rem; margin-bottom:.85rem; }
-.rs-top i{ width:7px; height:7px; border-radius:50%; background:rgba(234,241,251,.2); }
+.rs-top .rs-dot{ width:7px; height:7px; border-radius:50%; background:rgba(234,241,251,.2); }
 .rs-cap{ font-family:var(--font-mono); font-size:.56rem; letter-spacing:.05em; color:rgba(234,241,251,.5); margin-left:auto; text-transform:uppercase; }
 .rs-bars{ display:flex; align-items:flex-end; gap:5px; height:76px; margin-bottom:.7rem; }
 .rs-bar{ flex:1; background:rgba(234,241,251,.14); border-radius:2px 2px 0 0; transform-origin:bottom; }
@@ -1028,7 +1028,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <span class="promo-banner-text">Founders Offer — the first 25 subscribers lock in $40/month for a full year.</span>
     <span class="promo-banner-cta">See the offer →</span>
   </a>
-  <button class="promo-banner-close" id="promoBannerClose" aria-label="Dismiss"><span aria-hidden="true">×</span></button>
+  <button class="promo-banner-close" id="promoBannerClose" aria-label="Dismiss"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
 </div>
 <script>
 (function(){
@@ -1295,7 +1295,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="rs-screens">
         <div class="rs-row">
           <div class="rs-screen">
-            <div class="rs-top"><i></i><i></i><i></i><span class="rs-cap">Leads</span></div>
+            <div class="rs-top"><span class="rs-dot"></span><span class="rs-dot"></span><span class="rs-dot"></span><span class="rs-cap">Leads</span></div>
             <div class="rs-mini">
               <div class="rs-mini-r"><span>New this week</span><strong>+38</strong></div>
               <div class="rs-mini-r"><span>Replied &lt;1 min</span><strong>100%</strong></div>
@@ -1305,7 +1305,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             </div>
           </div>
           <div class="rs-screen">
-            <div class="rs-top"><i></i><i></i><i></i><span class="rs-cap">Growth</span></div>
+            <div class="rs-top"><span class="rs-dot"></span><span class="rs-dot"></span><span class="rs-dot"></span><span class="rs-cap">Growth</span></div>
             <div class="rs-bars">
               <span class="rs-bar" style="height:40%"></span>
               <span class="rs-bar" style="height:55%"></span>
