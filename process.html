@@ -100,6 +100,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border-radius: 2px;
 }
 
+/* Skip link (accessibility) */
+.skip-link{
+  position:absolute; left:1rem; top:-100px; z-index:1000;
+  background:var(--sky); color:#fff; padding:.7em 1.2em;
+  border-radius:var(--radius-sharp); font-family:var(--font-body);
+  font-weight:600; text-decoration:none; transition:top .2s var(--ease);
+}
+.skip-link:focus{ top:1rem; }
+.services-rail:focus-visible, .demo-tabs:focus-visible{
+  outline:2px solid var(--sky); outline-offset:4px; border-radius:4px;
+}
+
 /* ---------- eyebrow / structural labels ---------- */
 .eyebrow{
   display:flex;
@@ -355,7 +367,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .timeline-dot{ position:absolute; left:-3.05rem; top:.25rem; width:1.8rem; height:1.8rem; border-radius:50%; background:var(--navy); border:3px solid var(--paper); box-shadow:0 0 0 2px var(--navy); display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:.7rem; font-weight:700; color:#fff; z-index:1; }
 .timeline-item.active .timeline-dot{ background:var(--sky); box-shadow:0 0 0 2px var(--sky); }
 .timeline-label{ font-family:var(--font-mono); font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:.08em; color:var(--sky-dim); margin-bottom:.5rem; }
-.timeline-item h3{ font-size:1.45rem; margin-bottom:.8rem; }
+.timeline-item h2{ font-size:1.45rem; margin-bottom:.8rem; }
 .timeline-item p{ color:var(--slate); font-size:1rem; line-height:1.7; max-width:560px; }
 .timeline-item ul{ list-style:none; margin-top:1.2rem; display:flex; flex-direction:column; gap:.6rem; }
 .timeline-item ul li{ display:flex; align-items:flex-start; gap:.7rem; color:var(--slate); font-size:.95rem; }
@@ -412,6 +424,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 </style>
 </head>
 <body>
+<a href="#main" class="skip-link">Skip to main content</a>
 
 <header class="site-header">
   <div class="nav-inner">
@@ -436,7 +449,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   </div>
 </header>
 
-<section class="section process-hero">
+<section class="section process-hero" id="main" tabindex="-1">
   <div class="wrap">
     <div class="eyebrow">How We Work</div>
     <h1>From discovery call to live campaigns, in four steps.</h1>
@@ -451,12 +464,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="timeline-item reveal">
         <div class="timeline-dot">01</div>
         <div class="timeline-label">Week 1 — Discovery</div>
-        <h3>The Discovery Call</h3>
+        <h2>The Discovery Call</h2>
         <p>Before anything gets built, we get on a call to understand your business, your goals, and your current marketing situation. No pitch deck, no pressure — just an honest conversation about where you are and where you want to be.</p>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>We learn your biggest marketing challenge right now</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>We walk through which services fit your goals and budget</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>We recommend a package and ad budget approach that makes sense</li>
+          <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>We learn your biggest marketing challenge right now</li>
+          <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>We walk through which services fit your goals and budget</li>
+          <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>We recommend a package and ad budget approach that makes sense</li>
         </ul>
         <div class="timeline-card">
           <p class="tc-label">Our packages</p>
@@ -467,38 +480,38 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="timeline-item reveal">
         <div class="timeline-dot">02</div>
         <div class="timeline-label">Week 1 — Agreement</div>
-        <h3>The Agreement</h3>
+        <h2>The Agreement</h2>
         <p>Once we're aligned on a plan, we send over a straightforward digital marketing agreement covering scope, payment terms, and responsibilities. Month-to-month with 30-day written notice to cancel — no long-term lock-ins.</p>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Clear scope of services — no hidden deliverables</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Month-to-month — cancel anytime with 30 days written notice</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Advertising budgets stay separate — paid directly to the platform</li>
+          <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Clear scope of services — no hidden deliverables</li>
+          <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Month-to-month — cancel anytime with 30 days written notice</li>
+          <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Advertising budgets stay separate — paid directly to the platform</li>
         </ul>
       </div>
 
       <div class="timeline-item reveal">
         <div class="timeline-dot">03</div>
         <div class="timeline-label">Week 1–2 — Onboarding</div>
-        <h3>Streamlined Onboarding</h3>
+        <h2>Streamlined Onboarding</h2>
         <p>After signing, we send a simple access and information request. You provide your accounts and brand assets — we handle everything else. Most clients are fully onboarded within a week.</p>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Social media account access (Instagram, Facebook, etc.)</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Ad platform access (Meta Ads Manager if running paid campaigns)</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Brand logo, colors, photos, and any existing content you have</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>3-business-day approval turnaround keeps campaigns on track</li>
+          <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Social media account access (Instagram, Facebook, etc.)</li>
+          <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Ad platform access (Meta Ads Manager if running paid campaigns)</li>
+          <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Brand logo, colors, photos, and any existing content you have</li>
+          <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>3-business-day approval turnaround keeps campaigns on track</li>
         </ul>
       </div>
 
       <div class="timeline-item active reveal">
         <div class="timeline-dot">04</div>
         <div class="timeline-label">Week 2–3 — Launch</div>
-        <h3>Campaign Launch &amp; Ongoing Management</h3>
+        <h2>Campaign Launch &amp; Ongoing Management</h2>
         <p>Campaigns go live and get actively managed — not set and forgotten. The first 15–45 days are an optimization phase. After that, your account runs on a steady rhythm of content, ads, and regular performance updates.</p>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Content goes out on a consistent, pre-approved schedule</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Ad campaigns get tested and optimized in real time</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Regular performance updates so you always know what's working</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Strategy adjusts monthly around what the data shows</li>
+          <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Content goes out on a consistent, pre-approved schedule</li>
+          <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Ad campaigns get tested and optimized in real time</li>
+          <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Regular performance updates so you always know what's working</li>
+          <li><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Strategy adjusts monthly around what the data shows</li>
         </ul>
       </div>
 
@@ -514,23 +527,23 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
     <div class="faq-grid">
       <div class="faq-item" style="border-color:rgba(255,255,255,.1);">
-        <button class="faq-q" style="background:#111827;color:#fff;">Do I need to sign a long-term contract?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <button class="faq-q" style="background:#111827;color:#fff;">Do I need to sign a long-term contract?<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
         <div class="faq-a" style="background:#111827;color:rgba(255,255,255,.55);">No. Every agreement is month-to-month. Either party can cancel with 30 days written notice — no penalty, no lock-in.</div>
       </div>
       <div class="faq-item" style="border-color:rgba(255,255,255,.1);">
-        <button class="faq-q" style="background:#111827;color:#fff;">How long until I see results?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <button class="faq-q" style="background:#111827;color:#fff;">How long until I see results?<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
         <div class="faq-a" style="background:#111827;color:rgba(255,255,255,.55);">Most campaigns have a 15–45 day testing and optimization phase. Some see leads quickly; others take a bit longer to dial in. We're transparent about where things stand throughout.</div>
       </div>
       <div class="faq-item" style="border-color:rgba(255,255,255,.1);">
-        <button class="faq-q" style="background:#111827;color:#fff;">Is the advertising budget included in the monthly fee?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <button class="faq-q" style="background:#111827;color:#fff;">Is the advertising budget included in the monthly fee?<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
         <div class="faq-a" style="background:#111827;color:rgba(255,255,255,.55);">No — ad spend goes directly to the platform and is separate from our service fee. We'll recommend a budget based on your goals, but you control what you spend.</div>
       </div>
       <div class="faq-item" style="border-color:rgba(255,255,255,.1);">
-        <button class="faq-q" style="background:#111827;color:#fff;">Do I need to provide photos and videos?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <button class="faq-q" style="background:#111827;color:#fff;">Do I need to provide photos and videos?<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
         <div class="faq-a" style="background:#111827;color:rgba(255,255,255,.55);">It helps, but it's not required to get started. We work with professional graphic design to create branded content. Original photos always perform better, so share whatever you have as you go.</div>
       </div>
       <div class="faq-item" style="border-color:rgba(255,255,255,.1);">
-        <button class="faq-q" style="background:#111827;color:#fff;">Who do I contact if I have questions?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <button class="faq-q" style="background:#111827;color:#fff;">Who do I contact if I have questions?<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
         <div class="faq-a" style="background:#111827;color:rgba(255,255,255,.55);">Your primary contact is always our team — email us at info@ajwebservices.com. We believe clear communication is the foundation of every good campaign.</div>
       </div>
     </div>
@@ -545,8 +558,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <p>Book a call or send us a message and we'll put together a plan around your actual goals.</p>
       </div>
       <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-        <a href="https://calendar.app.google/784zs2xbuUyDoZuw5" class="btn btn--ghost" target="_blank" rel="noopener" style="color:var(--on-navy); border-color:rgba(255,255,255,.25);">Book a Call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-        <a href="index.html#contact" class="btn btn--primary">Send a Message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        <a href="https://calendar.app.google/784zs2xbuUyDoZuw5" class="btn btn--ghost" target="_blank" rel="noopener" style="color:var(--on-navy); border-color:rgba(255,255,255,.25);">Book a Call <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        <a href="index.html#contact" class="btn btn--primary">Send a Message <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
       </div>
     </div>
   </div>
@@ -560,7 +573,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <p>Digital marketing run hands-on — social media, advertising, content, and the campaign management to back it up.</p>
       </div>
       <div class="footer-col">
-        <h4>Site</h4>
+        <h3>Site</h3>
         <ul>
           <li><a href="index.html#services">Services</a></li>
           <li><a href="process.html">How We Work</a></li>
@@ -570,11 +583,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Connect</h4>
+        <h3>Connect</h3>
         <div class="social-row">
-          <a href="https://facebook.com/profile.php?id=61584159706556" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-          <a href="https://instagram.com/aj.webservices" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
-          <a href="https://www.youtube.com/@aj.webservices" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://facebook.com/profile.php?id=61584159706556" aria-label="Facebook" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://instagram.com/aj.webservices" aria-label="Instagram" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="https://www.youtube.com/@aj.webservices" aria-label="YouTube" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
 
           <div style="margin-top:1.1rem;">
             <a href="https://www.producthunt.com/products/a-j-lead-scraper?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-a-j-lead-scraper" target="_blank" rel="noopener noreferrer">

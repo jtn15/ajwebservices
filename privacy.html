@@ -100,6 +100,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border-radius: 2px;
 }
 
+/* Skip link (accessibility) */
+.skip-link{
+  position:absolute; left:1rem; top:-100px; z-index:1000;
+  background:var(--sky); color:#fff; padding:.7em 1.2em;
+  border-radius:var(--radius-sharp); font-family:var(--font-body);
+  font-weight:600; text-decoration:none; transition:top .2s var(--ease);
+}
+.skip-link:focus{ top:1rem; }
+.services-rail:focus-visible, .demo-tabs:focus-visible{
+  outline:2px solid var(--sky); outline-offset:4px; border-radius:4px;
+}
+
 /* ---------- eyebrow / structural labels ---------- */
 .eyebrow{
   display:flex;
@@ -350,7 +362,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .policy-hero h1{ font-size: clamp(2rem,4vw,3rem); max-width:680px; }
 .policy-meta{ font-family:var(--font-mono); font-size:.75rem; color:var(--slate-soft); margin-top:.8rem; display:flex; gap:2rem; flex-wrap:wrap; }
 .toc{ background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius-sharp); padding:1.6rem 2rem; margin-bottom:3rem; }
-.toc h3{ font-size:.9rem; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.06em; color:var(--slate-soft); margin-bottom:1rem; }
+.toc h2{ font-size:.9rem; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.06em; color:var(--slate-soft); margin-bottom:1rem; }
 .toc ol{ padding-left:1.2rem; display:flex; flex-direction:column; gap:.4rem; }
 .toc ol li a{ font-size:.9rem; color:var(--sky-dim); text-decoration:none; }
 .toc ol li a:hover{ text-decoration:underline; }
@@ -403,6 +415,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 </style>
 </head>
 <body>
+<a href="#main" class="skip-link">Skip to main content</a>
 
 <header class="site-header">
   <div class="nav-inner">
@@ -439,7 +452,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   </div>
 </div>
 
-<section class="section section--raised">
+<section class="section section--raised" id="main" tabindex="-1">
   <div class="wrap policy-wrap">
 
     <div class="warning-callout">
@@ -447,7 +460,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </div>
 
     <div class="toc">
-      <h3>Table of Contents</h3>
+      <h2>Table of Contents</h2>
       <ol>
         <li><a href="#section-1">Who We Are and Scope of This Policy</a></li>
         <li><a href="#section-2">Information We Collect</a></li>
@@ -737,7 +750,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <p>Digital marketing run hands-on &mdash; social media, advertising, content, and the campaign management to back it up.</p>
       </div>
       <div class="footer-col">
-        <h4>Site</h4>
+        <h3>Site</h3>
         <ul>
           <li><a href="/#services">Services</a></li>
           <li><a href="/process/">How We Work</a></li>
@@ -747,11 +760,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Connect</h4>
+        <h3>Connect</h3>
         <div class="social-row">
-          <a href="https://facebook.com/profile.php?id=61584159706556" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-          <a href="https://instagram.com/aj.webservices" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
-          <a href="https://www.youtube.com/@aj.webservices" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://facebook.com/profile.php?id=61584159706556" aria-label="Facebook" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://instagram.com/aj.webservices" aria-label="Instagram" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="https://www.youtube.com/@aj.webservices" aria-label="YouTube" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg></a>
 
           <div style="margin-top:1.1rem;">
             <a href="https://www.producthunt.com/products/a-j-lead-scraper?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-a-j-lead-scraper" target="_blank" rel="noopener noreferrer">
