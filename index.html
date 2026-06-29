@@ -1618,12 +1618,132 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     }
   }
 
+  /* =========================================================================
+     AJForms — client-side input hardening (validation, sanitization, anti-bot)
+     NOTE: On a static GitHub Pages site this is a UX + spam layer, not a
+     server security boundary. Real enforcement happens at Formspree.
+     ========================================================================= */
+  var AJForms = (function(){
+    // Strip control chars / zero-width chars, collapse whitespace, trim.
+    function clean(v){
+      return String(v == null ? '' : v)
+        .replace(/[\u0000-\u001F\u007F\u200B-\u200D\uFEFF]/g, '')
+        .replace(/[ \t]{2,}/g, ' ')
+        .trim();
+    }
+    // HTML-escape (used anywhere a value might be written into the DOM).
+    function esc(v){
+      return String(v).replace(/[&<>"'`]/g, function(c){
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;'}[c];
+      });
+    }
+    var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    var URLRE = /^https?:\/\/[^\s.]+\.[^\s]{2,}$/i;
+    var META  = { '_subject':1, '_gotcha':1, '_replyto':1, '_t':1 };
+
+    // Validate + sanitize against a schema. Returns {ok, errors, data}.
+    function validate(form, schema){
+      var errors = [];
+      var data = new FormData(form);
+      // 1) Reject unexpected fields: drop anything not in schema or META.
+      var keys = []; data.forEach(function(_, k){ keys.push(k); });
+      keys.forEach(function(k){ if(!schema[k] && !META[k]) data.delete(k); });
+      // 2) Per-field checks; write cleaned values back into the payload.
+      Object.keys(schema).forEach(function(field){
+        var r = schema[field];
+        var v = clean(data.get(field));
+        if(!v){
+          if(r.required) errors.push([field, r.label + ' is required.']);
+          else data.set(field, '');
+          return;
+        }
+        if(r.min && v.length < r.min){ errors.push([field, r.label + ' is too short.']); return; }
+        if(r.max && v.length > r.max){ errors.push([field, r.label + ' is too long (max ' + r.max + ' characters).']); return; }
+        if(r.type === 'email' && !EMAIL.test(v)){ errors.push([field, 'Please enter a valid email address.']); return; }
+        if(r.type === 'url' && !URLRE.test(v)){ errors.push([field, 'Please enter a valid URL starting with http:// or https://']); return; }
+        if(r.pattern && !r.pattern.test(v)){ errors.push([field, r.label + ' contains characters that are not allowed.']); return; }
+        data.set(field, v);
+      });
+      return { ok: errors.length === 0, errors: errors, data: data };
+    }
+
+    // Anti-automation: honeypot filled OR submitted implausibly fast.
+    function isBot(form){
+      var hp = form.querySelector('input[name="_gotcha"]');
+      if(hp && hp.value.trim() !== '') return true;
+      var t = form.querySelector('input[name="_t"]');
+      if(t){
+        var elapsed = Date.now() - parseInt(t.value, 10);
+        if(isFinite(elapsed) && elapsed < 2500) return true;
+      }
+      return false;
+    }
+
+    function clearErrors(form){
+      form.querySelectorAll('.aj-field-error').forEach(function(n){ n.remove(); });
+      form.querySelectorAll('[aria-invalid]').forEach(function(n){ n.removeAttribute('aria-invalid'); });
+    }
+    function showErrors(form, errors){
+      clearErrors(form);
+      errors.forEach(function(pair){
+        var input = form.querySelector('[name="' + pair[0] + '"]');
+        var note = document.createElement('p');
+        note.className = 'aj-field-error';
+        note.setAttribute('role', 'alert');
+        note.style.cssText = 'color:#ef4444;font-size:.8rem;margin:.3rem 0 0;font-family:inherit;';
+        note.textContent = pair[1];
+        if(input && input.parentNode){
+          input.setAttribute('aria-invalid', 'true');
+          input.parentNode.appendChild(note);
+        }
+      });
+      if(errors.length){
+        var first = form.querySelector('[name="' + errors[0][0] + '"]');
+        if(first) first.focus();
+      }
+    }
+
+    // Inject a hidden honeypot + a load-time timestamp into a form.
+    function harden(form){
+      if(!form || form.getAttribute('data-aj-hardened')) return;
+      form.setAttribute('data-aj-hardened', '1');
+      if(!form.querySelector('input[name="_gotcha"]')){
+        var hp = document.createElement('input');
+        hp.type = 'text'; hp.name = '_gotcha'; hp.tabIndex = -1; hp.autocomplete = 'off';
+        hp.setAttribute('aria-hidden', 'true');
+        hp.style.cssText = 'position:absolute!important;left:-9999px!important;top:-9999px!important;width:1px;height:1px;opacity:0;pointer-events:none;';
+        form.appendChild(hp);
+      }
+      if(!form.querySelector('input[name="_t"]')){
+        var t = document.createElement('input');
+        t.type = 'hidden'; t.name = '_t'; t.value = String(Date.now());
+        form.appendChild(t);
+      }
+    }
+
+    // Auto-harden every Formspree-backed form on the page at load.
+    document.querySelectorAll('form[action*="formspree.io"]').forEach(harden);
+
+    return { clean:clean, esc:esc, validate:validate, isBot:isBot,
+             showErrors:showErrors, clearErrors:clearErrors, harden:harden };
+  })();
+
   /* ---------- contact form -> Formspree ---------- */
   var form = document.querySelector('.contact-form');
   if(form){
     form.addEventListener('submit', function(e){
       e.preventDefault();
-      var data = new FormData(form);
+      AJForms.clearErrors(form);
+      if(AJForms.isBot(form)){ form.innerHTML = '<p class="form-success">Thanks &mdash; your message is in. We\'ll get back to you within a business day or two.</p>'; return; }
+      var _v = AJForms.validate(form, {
+        name:    { label:'Name',     required:true,  min:2, max:80,  pattern:/^[\p{L}\p{M}\s.,'\u2019\-]+$/u },
+        email:   { label:'Email',    required:true,  type:'email', max:254 },
+        business:{ label:'Business', required:false, max:120 },
+        message: { label:'Message',  required:true,  min:5, max:2000 }
+      });
+      if(!_v.ok){ AJForms.showErrors(form, _v.errors); return; }
+      _v.data.delete('_t');
+      var data = _v.data;
       var submitBtn = form.querySelector('button[type="submit"]');
       if(submitBtn){ submitBtn.disabled = true; submitBtn.style.opacity = '.6'; }
       fetch(form.action, {
@@ -1648,7 +1768,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   if(auditForm){
     auditForm.addEventListener('submit', function(e){
       e.preventDefault();
-      var data = new FormData(auditForm);
+      AJForms.clearErrors(auditForm);
+      if(AJForms.isBot(auditForm)){ auditForm.innerHTML = '<p class="form-success" style="color:var(--on-navy); padding:2rem 0;">You\'re on the list &mdash; your free SEO audit will be in your inbox within 1&ndash;2 business days.</p>'; return; }
+      var _v = AJForms.validate(auditForm, {
+        name:        { label:'Name',        required:true, min:2, max:80, pattern:/^[\p{L}\p{M}\s.,'\u2019\-]+$/u },
+        email:       { label:'Email',       required:true, type:'email', max:254 },
+        website_url: { label:'Website URL', required:true, type:'url',   max:200 }
+      });
+      if(!_v.ok){ AJForms.showErrors(auditForm, _v.errors); return; }
+      _v.data.delete('_t');
+      var data = _v.data;
       var submitBtn = auditForm.querySelector('button[type="submit"]');
       if(submitBtn){ submitBtn.disabled = true; submitBtn.style.opacity = '.6'; }
       fetch(auditForm.action, {
