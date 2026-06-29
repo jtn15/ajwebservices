@@ -156,7 +156,13 @@ tr:hover td{background:var(--paper);}
   <div class="admin-wrap">
     <div class="page-head">
       <h1>Client Management</h1>
-      <button class="btn btn-primary" id="addClientBtn">+ Add Client</button>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap;">
+        <button class="btn btn-ghost" id="exportCsvBtn">Export CSV</button>
+        <button class="btn btn-ghost" id="backupBtn">Backup</button>
+        <button class="btn btn-ghost" id="restoreBtn">Restore</button>
+        <button class="btn btn-primary" id="addClientBtn">+ Add Client</button>
+        <input type="file" id="restoreFile" accept="application/json" style="display:none;">
+      </div>
     </div>
 
     <div class="stats-row">
@@ -266,7 +272,13 @@ tr:hover td{background:var(--paper);}
 
 <script>
 (function(){
-  var ADMIN_PW = 'ajadmin2026';
+  // Password is stored as a one-way SHA-256 hash so it is NOT readable in the page source.
+  // To change it: hash your new password (e.g. run  printf 'newpass' | sha256sum ) and paste the result below.
+  var ADMIN_PW_HASH = 'daf83e5eee1e161295a322be43f65f8397d36b9a20023a16f56438c52c7a20e2';
+  async function sha256(str){
+    var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+  }
   var gate = document.getElementById('adminGate');
   var content = document.getElementById('adminContent');
   var adminPw = document.getElementById('adminPw');
@@ -276,8 +288,9 @@ tr:hover td{background:var(--paper);}
 
   function unlock(){ gate.style.display='none'; content.style.display='block'; renderAll(); }
   try{ if(sessionStorage.getItem('aj-admin-unlocked')==='1') unlock(); }catch(e){}
-  loginBtn.addEventListener('click', function(){
-    if(adminPw.value===ADMIN_PW){ adminError.style.display='none'; try{ sessionStorage.setItem('aj-admin-unlocked','1'); }catch(e){} unlock(); }
+  loginBtn.addEventListener('click', async function(){
+    var entered = await sha256(adminPw.value);
+    if(entered===ADMIN_PW_HASH){ adminError.style.display='none'; try{ sessionStorage.setItem('aj-admin-unlocked','1'); }catch(e){} unlock(); }
     else{ adminError.style.display='block'; adminPw.value=''; adminPw.focus(); }
   });
   adminPw.addEventListener('keydown', function(e){ if(e.key==='Enter') loginBtn.click(); });
@@ -457,6 +470,56 @@ tr:hover td{background:var(--paper);}
     status.style.display='inline';
     setTimeout(function(){ status.style.display='none'; },3000);
     renderTable();
+  });
+
+  // ---- Backup / Restore / CSV export ----
+  document.getElementById('backupBtn').addEventListener('click', function(){
+    var data=JSON.stringify(getClients(),null,2);
+    var blob=new Blob([data],{type:'application/json'});
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='aj-clients-backup-'+new Date().toISOString().slice(0,10)+'.json';
+    a.click(); URL.revokeObjectURL(a.href);
+  });
+
+  document.getElementById('restoreBtn').addEventListener('click', function(){ document.getElementById('restoreFile').click(); });
+  document.getElementById('restoreFile').addEventListener('change', function(e){
+    var file=e.target.files[0]; if(!file) return;
+    var reader=new FileReader();
+    reader.onload=function(){
+      try{
+        var imported=JSON.parse(reader.result);
+        if(!Array.isArray(imported)) throw new Error('Not a valid backup file.');
+        var existing=getClients();
+        var byId={}; existing.forEach(function(c){ byId[c.id]=c; });
+        var added=0, updated=0;
+        imported.forEach(function(c){
+          if(!c.id) c.id=genId();
+          if(byId[c.id]) updated++; else added++;
+          byId[c.id]=c;
+        });
+        var merged=Object.keys(byId).map(function(k){ return byId[k]; });
+        if(confirm('Restore will merge '+imported.length+' client(s): '+added+' new, '+updated+' updated. Continue?')){
+          saveClients(merged); renderAll();
+          alert('Restore complete.');
+        }
+      }catch(err){ alert('Could not read backup file: '+err.message); }
+      e.target.value='';
+    };
+    reader.readAsText(file);
+  });
+
+  document.getElementById('exportCsvBtn').addEventListener('click', function(){
+    var clients=getClients();
+    if(!clients.length){ alert('No clients to export.'); return; }
+    var cols=['name','business','email','phone','package','fee','adbudget','startdate','status','industry','notes'];
+    function cell(v){ v=String(v==null?'':v); return '"'+v.replace(/"/g,'""')+'"'; }
+    var rows=[cols.join(',')].concat(clients.map(function(c){ return cols.map(function(k){ return cell(c[k]); }).join(','); }));
+    var blob=new Blob([rows.join('\n')],{type:'text/csv'});
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='aj-clients-'+new Date().toISOString().slice(0,10)+'.csv';
+    a.click(); URL.revokeObjectURL(a.href);
   });
 
   document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeModal(); document.getElementById('cancelDelete').click(); } });
