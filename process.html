@@ -58,6 +58,44 @@
   --ease: cubic-bezier(.22,.61,.36,1);
 }
 
+/* ===== SIGNATURE: SITE-PLAN / BLUEPRINT SYSTEM =====
+   Registration marks + drawing-grid motif, nodding to the trades
+   (roofers/plumbers/landscapers) whose job sites run on blueprints. */
+.blueprint{ position:relative; overflow:hidden; }
+.blueprint::before{
+  content:'';
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(47,127,224,.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47,127,224,.10) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 88%);
+          mask-image: linear-gradient(to bottom, black, transparent 88%);
+  pointer-events:none;
+  z-index:0;
+}
+.bp-corner{
+  position:absolute; width:28px; height:28px;
+  border-left:2px solid var(--sky); border-top:2px solid var(--sky);
+  opacity:.5; pointer-events:none; z-index:1;
+}
+.bp-corner.tl{ top:22px; left:22px; }
+.bp-corner.tr{ top:22px; right:22px; transform:rotate(90deg); }
+.bp-corner.br{ bottom:22px; right:22px; transform:rotate(180deg); }
+.bp-corner.bl{ bottom:22px; left:22px; transform:rotate(270deg); }
+.bp-tag{
+  position:absolute; top:64px; right:6%;
+  font-family: var(--font-mono);
+  font-size: .68rem; letter-spacing: .14em; text-transform:uppercase;
+  color: var(--sky); opacity:.65; white-space:nowrap; z-index:1; pointer-events:none;
+}
+.hero .bp-tag, .ls-hero .bp-tag{ color: var(--on-navy-soft); }
+@media (max-width: 640px){
+  .bp-corner{ width:18px; height:18px; }
+  .bp-tag{ display:none; }
+}
+
+
 *,*::before,*::after{ box-sizing: border-box; }
 html{ scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce){
@@ -372,11 +410,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .timeline-item ul{ list-style:none; margin-top:1.2rem; display:flex; flex-direction:column; gap:.6rem; }
 .timeline-item ul li{ display:flex; align-items:flex-start; gap:.7rem; color:var(--slate); font-size:.95rem; }
 .timeline-item ul li svg{ width:15px; height:15px; color:var(--sky); flex-shrink:0; margin-top:.2rem; }
-.timeline-card{ background:var(--paper-raised); border:1px solid var(--line); border-radius:var(--radius-sharp); padding:1.6rem 1.8rem; margin-top:1.4rem; max-width:560px; }
+.timeline-card{ background:var(--paper-raised); border:1px solid var(--line); border-radius:16px; padding:1.6rem 1.8rem; margin-top:1.4rem; max-width:560px; transition:transform .28s var(--ease),box-shadow .28s var(--ease); }
+.timeline-card:hover{ transform:translateY(-3px); box-shadow:0 20px 40px -12px rgba(15,25,35,.14),0 4px 12px rgba(15,25,35,.06); }
 .timeline-card .tc-label{ font-family:var(--font-mono); font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--slate-soft); margin-bottom:.8rem; }
 .timeline-card p{ font-size:.92rem; color:var(--slate); }
 .faq-grid{ display:flex; flex-direction:column; gap:1rem; max-width:720px; margin:0 auto; }
-.faq-item{ border:1px solid var(--line); border-radius:var(--radius-sharp); overflow:hidden; }
+.faq-item{ border:1px solid var(--line); border-radius:16px; overflow:hidden; transition:box-shadow .25s,transform .25s; }
+.faq-item:hover{ transform:translateY(-2px); box-shadow:0 16px 32px -10px rgba(15,25,35,.12); }
 .faq-q{ width:100%; text-align:left; background:var(--paper-raised); border:none; padding:1.2rem 1.5rem; font-family:var(--font-body); font-size:1rem; font-weight:600; color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:1rem; }
 .faq-q svg{ width:18px; height:18px; flex-shrink:0; transition:transform .2s; }
 .faq-item.is-open .faq-q svg{ transform:rotate(45deg); }
@@ -387,6 +427,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .cta-band p{ color:var(--on-navy-soft); margin-top:.5rem; }
 .footer-bottom a{ text-decoration:underline; text-underline-offset:2px; }
 @media (max-width:640px){ .timeline{ padding-left:2.2rem; } .timeline-dot{ left:-2.2rem; width:1.4rem; height:1.4rem; font-size:.6rem; } }
+@media (min-width:900px){ #processStickyPhoto{ display:block !important; } }
+@media (max-width:899px){ .wrap > div[style*="grid-template-columns:280px"]{ grid-template-columns:1fr !important; } }
 
 /* ---- custom cursor ---- */
 @media(hover: hover) and (pointer: fine){
@@ -451,7 +493,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 </header>
 <main id="main" tabindex="-1">
 
-<section class="section process-hero">
+<section class="section process-hero blueprint">
+  <span class="bp-corner tl" aria-hidden="true"></span>
+  <span class="bp-corner tr" aria-hidden="true"></span>
+  <span class="bp-corner bl" aria-hidden="true"></span>
+  <span class="bp-corner br" aria-hidden="true"></span>
+  <p class="bp-tag" style="color:var(--sky);">Project Sequence &middot; 4 Stages</p>
   <div class="wrap">
     <div class="eyebrow">How We Work</div>
     <h1>From discovery call to live campaigns, in four steps.</h1>
@@ -485,7 +532,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 <section class="section section--raised">
   <div class="wrap">
-    <div class="timeline">
+    <div style="display:grid;grid-template-columns:280px 1fr;gap:clamp(2rem,4vw,3.5rem);align-items:start">
+      <div class="reveal" style="position:sticky;top:100px;display:none" id="processStickyPhoto">
+        <img
+          src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=700&q=80"
+          alt="Team planning a client onboarding process"
+          style="width:100%;border-radius:18px;aspect-ratio:3/4;object-fit:cover"
+          loading="lazy"
+        >
+      </div>
+      <div class="timeline">
 
       <div class="timeline-item reveal">
         <div class="timeline-dot">01</div>
@@ -541,6 +597,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         </ul>
       </div>
 
+    </div>
     </div>
   </div>
 </section>
